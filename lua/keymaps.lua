@@ -43,10 +43,10 @@ vim.keymap.set('n', '<leader>p', '"_dP', { desc = 'Paste while keeping buffer' }
 vim.keymap.set('n', '<leader>r', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = 'Multi-replace current word' })
 
 -- Keybinds to make split navigation easier.
-vim.keymap.set('n', '<M-Left>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<M-Right>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<M-Down>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<M-Up>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+vim.keymap.set('n', '<S-Left>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+vim.keymap.set('n', '<S-Right>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+vim.keymap.set('n', '<S-Down>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+vim.keymap.set('n', '<S-Up>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 vim.keymap.set({'n', 'x', 'o'}, '<leader>T', function() require("flash").toggle() end, {desc = '[T]oggle flash search' })
 
 
@@ -85,7 +85,7 @@ vim.keymap.set('n', 's', function()
     previewer = false,
   })
 end, { desc = '[/] Fuzzily search in current buffer' })
-vim.api.nvim_set_keymap('n', ':', ':Telescope cmdline<CR>', { noremap = true, desc = "Cmdline" })
+vim.api.nvim_set_keymap('n', '<leader>:', ':Telescope cmdline<CR>', { noremap = true, desc = "Cmdline" })
 
 -- Basic debugging keymaps
 vim.keymap.set('n', '<F4>', function() require('dap').continue() end, { desc = 'Debug: Start/Continue' })
