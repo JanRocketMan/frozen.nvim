@@ -8,7 +8,7 @@
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Toggle line numbers
-vim.keymap.set('n', '<leader>l', 
+vim.keymap.set('n', 'l', 
   '<cmd>let [&nu, &rnu] = [!&nu, !&rnu]<CR>',
   { desc = 'Toggle [l]ine numbers' }
 )
@@ -24,12 +24,12 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- File manipulation hotkeys
-vim.keymap.set('n', '<leader>i', vim.cmd.write, { desc = 'Save current f[I]le' })
-vim.keymap.set('n', '<leader>x', vim.cmd.exit, { desc = 'Save file and e[x]it vim' })
-vim.keymap.set('n', '<leader>o', function()
+vim.keymap.set('n', 'w', vim.cmd.write, { desc = '[W]rite current file' })
+vim.keymap.set('n', '<leader>x', function() vim.cmd('q!') end, { desc = 'E[x]it current buffer without saving' })
+vim.keymap.set('n', 'h', function()
   require('mini.files').open(vim.api.nvim_buf_get_name(0), true)
   require('mini.files').reveal_cwd()
-end, { desc = 'Open file [t]ree for current buffer' })
+end, { desc = 'Open file tree for current buffer' })
 vim.keymap.set('n', '<leader>F', function() 
   require('conform').format { async = true, lsp_fallback = true }
 end, { desc = '[F]ormat buffer' })
@@ -47,6 +47,7 @@ vim.keymap.set('n', '<S-Left>', '<C-w><C-h>', { desc = 'Move focus to the left w
 vim.keymap.set('n', '<S-Right>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<S-Down>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<S-Up>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+vim.keymap.set('n', '<S-Tab>', '<C-w><C-w>', { desc = 'Cycle through windows' })
 vim.keymap.set({'n', 'x', 'o'}, '<leader>T', function() require("flash").toggle() end, {desc = '[T]oggle flash search' })
 
 
@@ -85,7 +86,7 @@ vim.keymap.set('n', 's', function()
     previewer = false,
   })
 end, { desc = '[/] Fuzzily search in current buffer' })
-vim.api.nvim_set_keymap('n', '<leader>:', ':Telescope cmdline<CR>', { noremap = true, desc = "Cmdline" })
+vim.api.nvim_set_keymap('n', 'm', ':Telescope cmdline<CR>', { noremap = true, desc = "Open c[m]dline from telescope" })
 
 -- Basic debugging keymaps
 vim.keymap.set('n', '<F4>', function() require('dap').continue() end, { desc = 'Debug: Start/Continue' })
