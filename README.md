@@ -18,11 +18,10 @@ Probably shouldn't be used by anyone.
 - [fd==10.1.0](https://github.com/sharkdp/fd/releases/tag/v10.1.0)
 
 A bunch of python libraries:
-`pip install pyright ruff isort debugpy`
+`pip install pyright ruff debugpy`
 
-- `pyright ` for lsp and linting support
+- `pyright ` for autocompletion and static type checking
 - `ruff` for linting and autoformat
-- `isort` for sorting import on autoformat
 - `debugpy` for debugging
 
 Note that support for every language should be handled manually since we dont use Mason. For python simply installing for libs above works ok, but beware that I don't know anything about other languages. This config may be unusable for them.
