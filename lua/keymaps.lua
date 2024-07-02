@@ -7,8 +7,8 @@
 -- Clear higlhight on search by pressing <Esc> in normal mode
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
--- Toggle line numbers
-vim.keymap.set('n', 'l', 
+-- Toggle line numbers (they are disabled by default)
+vim.keymap.set('n', '<leader>l', 
   '<cmd>let [&nu, &rnu] = [!&nu, !&rnu]<CR>',
   { desc = 'Toggle [l]ine numbers' }
 )
@@ -18,18 +18,18 @@ vim.keymap.set('n', 'l',
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
-vim.keymap.set('n', '<leader>m', vim.diagnostic.setloclist, { desc = 'Open diagnostic quickfix list' })
+vim.keymap.set('n', '<leader>k', vim.diagnostic.setloclist, { desc = 'Open diagnostic [k]uickfix list' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- File manipulation hotkeys
-vim.keymap.set('n', 'w', vim.cmd.write, { desc = '[W]rite current file' })
+vim.keymap.set('n', '<leader>i', vim.cmd.write, { desc = 'Wr[i]te current file' })
 vim.keymap.set('n', '<leader>q', function() vim.cmd('q!') end, { desc = 'E[x]it current buffer without saving' })
-vim.keymap.set('n', 'h', function()
+vim.keymap.set('n', '<leader>o', function()
   require('mini.files').open(vim.api.nvim_buf_get_name(0), true)
   require('mini.files').reveal_cwd()
-end, { desc = 'Open file tree for current buffer' })
+end, { desc = 'Open fi[l]e tree for current buffer' })
 vim.keymap.set('n', '<leader>F', function() 
   require('conform').format { async = true, lsp_fallback = true }
 end, { desc = '[F]ormat buffer' })
@@ -76,8 +76,7 @@ vim.keymap.set('n', '<leader>hg',
 vim.keymap.set('n', '<leader>hh', function() require('telescope.builtin').help_tags() end, { desc = 'Search [h]elp' })
 vim.keymap.set('n', '<leader>hk', function() require('telescope.builtin').keymaps() end, { desc = 'Search Keymaps' })
 vim.keymap.set('n', '<leader>f', function() require('telescope.builtin').find_files() end, { desc = 'Search [F]iles' })
-vim.keymap.set('n', '<leader>w', function() require('telescope.builtin').grep_string() end, { desc = '[S]earch current [W]ord' })
-vim.keymap.set('n', '<leader>s', function() require('telescope.builtin').live_grep() end, { desc = 'Search by g[r]ep' })
+vim.keymap.set('n', '<leader>s', function() require('telescope.builtin').live_grep() end, { desc = '[S]earch by grep' })
 vim.keymap.set('n', '<leader>.', function() require('telescope.builtin').oldfiles() end, { desc = 'Search Recent Files ("." for repeat)' })
 vim.keymap.set('n', '<leader><leader>', function() require('telescope.builtin').buffers() end, { desc = 'Find existing buffers' })
 vim.keymap.set('n', 's', function()
@@ -86,7 +85,7 @@ vim.keymap.set('n', 's', function()
     previewer = false,
   })
 end, { desc = '[/] Fuzzily search in current buffer' })
-vim.api.nvim_set_keymap('n', 'm', ':Telescope cmdline<CR>', { noremap = true, desc = "Open c[m]dline from telescope" })
+vim.api.nvim_set_keymap('n', '<leader>:', ':Telescope cmdline<CR>', { noremap = true, desc = "Open c[m]dline in telescope" })
 
 -- Basic debugging keymaps
 vim.keymap.set('n', '<F4>', function() require('dap').continue() end, { desc = 'Debug: Start/Continue' })
