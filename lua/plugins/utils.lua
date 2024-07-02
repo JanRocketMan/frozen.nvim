@@ -41,9 +41,11 @@ return {
   -- Fast navigation in the current buffer
   {
     'folke/flash.nvim',
-    event = 'VeryLazy',
     ---@type Flash.Config
     opts = {},
+    init = function()
+      require("flash").toggle()
+    end,
     -- stylua: ignore
   },
   -- Show pending keybinds.
