@@ -19,10 +19,13 @@ vim.keymap.set('n', 'N', 'Nzzzv', { desc = 'Goto prev with centering' })
 vim.keymap.set({'n', 'x', 'o'}, '<leader>y', '"+y', { desc = '[Y]ank to the system clipboard' })
 vim.keymap.set({'n', 'x', 'o'}, '<leader>p', '"+P', { desc = '[P]aste from system clipboard' })
 vim.keymap.set({'n', 'x', 'o'}, '<leader>r', '"hy:%s/<C-r>h//g<left><left>', { desc = '[R]eplace all occurences of current selection in current buffer' })
+-- Use fast navigation w flash
+vim.keymap.set({'n', 'x', 'o'}, 's', function() require('flash').jump() end, {desc = "Flash jump"})
+vim.keymap.set({'n', 'x', 'o'}, 'S', function() require('flash').treesitter() end, {desc = "Flash jump treesitter"})
 
 -- File manipulation hotkeys
 vim.keymap.set('n', '<leader>i', vim.cmd.write, { desc = 'Wr[i]te current file' })
-vim.keymap.set('n', '<leader>q', function() vim.cmd('q!') end, { desc = 'E[x]it current buffer without saving' })
+vim.keymap.set('n', '<leader>q', function() vim.cmd("q!") end, { desc = 'E[x]it current buffer without saving' })
 vim.keymap.set('n', '<leader>o', function()
   require('mini.files').open(vim.api.nvim_buf_get_name(0), true)
   require('mini.files').reveal_cwd()
@@ -38,7 +41,7 @@ vim.keymap.set('n', '<leader>f', function() require('telescope.builtin').find_fi
 vim.keymap.set('n', '<leader>s', function() require('telescope.builtin').live_grep() end, { desc = '[S]earch by grep' })
 vim.keymap.set('n', '<leader>.', function() require('telescope.builtin').oldfiles() end, { desc = 'Search Recent Files ("." for repeat)' })
 vim.keymap.set('n', '<leader><leader>', function() require('telescope.builtin').buffers() end, { desc = 'Find existing buffers' })
-vim.keymap.set('n', 's', function()
+vim.keymap.set('n', '<leader>/', function()
   require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
     winblend = 10,
     previewer = false,
@@ -53,7 +56,6 @@ vim.keymap.set('n', '<S-Left>', '<C-w><C-h>', { desc = 'Move focus to the left w
 vim.keymap.set('n', '<S-Right>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<S-Down>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<S-Up>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
-vim.keymap.set('n', '<S-BS>', '<C-w><C-w>', { desc = 'Cycle through windows' })
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
@@ -82,8 +84,6 @@ vim.keymap.set('n', '<leader>B', function()
   require('dap').set_breakpoint(vim.fn.input 'Breakpoint condition: ')
 end, { desc = 'Debug: Set Conditional [B]reakpoint' })
 
--- Utilities
-vim.keymap.set({'n', 'x', 'o'}, '<leader>T', function() require("flash").toggle() end, {desc = '[T]oggle flash search (enabled by default)' })
 -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
 vim.keymap.set('n', '<F8>', function() require('dapui').toggle() end, { desc = 'Debug: See last session result.' })
 

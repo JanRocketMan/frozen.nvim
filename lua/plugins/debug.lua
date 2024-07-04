@@ -8,11 +8,13 @@ return {
 
     -- Required dependency for nvim-dap-ui
     'nvim-neotest/nvim-nio',
+    'mfussenegger/nvim-dap-python',
   },
   config = function()
     local dap = require 'dap'
     local dapui = require 'dapui'
 
+    require('dap-python').setup()
     -- A simple config to debug via attach
     -- Simply run `python -m debugpy --listen 5678 --wait-for-client`
     -- To start it
