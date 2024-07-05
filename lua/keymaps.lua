@@ -19,9 +19,15 @@ vim.keymap.set('n', 'N', 'Nzzzv', { desc = 'Goto prev with centering' })
 vim.keymap.set({'n', 'x', 'o'}, '<leader>y', '"+y', { desc = '[Y]ank to the system clipboard' })
 vim.keymap.set({'n', 'x', 'o'}, '<leader>p', '"+P', { desc = '[P]aste from system clipboard' })
 vim.keymap.set({'n', 'x', 'o'}, '<leader>r', '"hy:%s/<C-r>h//g<left><left>', { desc = '[R]eplace all occurences of current selection in current buffer' })
--- Use fast navigation w flash
-vim.keymap.set({'n', 'x', 'o'}, 's', function() require('flash').jump() end, {desc = "Flash jump"})
-vim.keymap.set({'n', 'x', 'o'}, 'S', function() require('flash').treesitter() end, {desc = "Flash jump treesitter"})
+
+ -- Use fast navigation w flash
+ vim.keymap.set({'n', 'x', 'o'}, 's', function() require('flash').jump() end, {desc = "Flash jump"})
+ vim.keymap.set({'n', 'x', 'o'}, 'S', function() require('flash').treesitter() end, {desc = "Flash jump treesitter"})
+ 
+-- Support for multiple cursors
+vim.keymap.set({'n', 'i', 'x'}, "<C-Up>", "<Cmd>MultipleCursorsAddUp<CR>", {desc = "Add cursor and move up"})
+vim.keymap.set({'n', 'i', 'x'}, "<C-Down>", "<Cmd>MultipleCursorsAddDown<CR>", {desc = "Add cursor and move down"})
+vim.keymap.set('n', '<leader>|', function() require("multiple-cursors").align() end, {desc = "Align multiple cursors vertically by inserting spaces"})
 
 -- File manipulation hotkeys
 vim.keymap.set('n', '<leader>i', vim.cmd.write, { desc = 'Wr[i]te current file' })

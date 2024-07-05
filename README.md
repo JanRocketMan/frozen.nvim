@@ -13,18 +13,24 @@ Probably shouldn't be used by anyone.
 
 ## Requirements
 
-- Basic utils: [nvim==0.10.0](https://github.com/neovim/neovim/releases/tag/v0.10.0), git, make, gcc
+System utils: git, make, gcc, unzip
+
+Neovim and tools:
+- [nvim==0.10.0](https://github.com/neovim/neovim/releases/tag/v0.10.0)
 - [ripgrep==14.1.0](https://github.com/BurntSushi/ripgrep/releases/tag/14.1.0)
 - [fd==10.1.0](https://github.com/sharkdp/fd/releases/tag/v10.1.0)
 
-A bunch of python libraries:
-`pip install pyright ruff debugpy`
-
-- `pyright ` for autocompletion and static type checking
+A bunch of python libraries: 
+- `pyright` for autocompletion and static type checking
 - `ruff` for linting and autoformat
 - `debugpy` for debugging
 
 Note that support for every language should be handled manually since we dont use Mason. For python simply installing for libs above works ok, but beware that I don't know anything about other languages. This config may be unusable for them.
 
 ## Installation
+
+Install dependencies: `pip install pyright ruff debugpy`
+
+Delete previous configs (cache them if you need): `rm -rf ~/.cache/nvim ~/.config/nvim ~/.local/share/nvim ~/.local/state/nvim`
+
 `git clone https://github.com/JanRocketMan/frozen.nvim.git ~/.config/nvim`

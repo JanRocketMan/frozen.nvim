@@ -50,6 +50,13 @@ return {
     },
     -- stylua: ignore
   },
+  -- Add support for multiple cursors
+  {
+    "brenton-leighton/multiple-cursors.nvim",
+    version = "*",
+    event = "VeryLazy",
+    opts = {},
+  },
   -- Show pending keybinds.
   {'folke/which-key.nvim', config = function() require('which-key').setup() end},
 }
