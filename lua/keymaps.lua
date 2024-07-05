@@ -25,7 +25,7 @@ vim.keymap.set({'n', 'x', 'o'}, 'S', function() require('flash').treesitter() en
 
 -- File manipulation hotkeys
 vim.keymap.set('n', '<leader>i', vim.cmd.write, { desc = 'Wr[i]te current file' })
-vim.keymap.set('n', '<leader>q', function() vim.cmd("q!") end, { desc = 'E[x]it current buffer without saving' })
+vim.keymap.set('n', '<leader>q', function() vim.cmd('qa!') end, { desc = 'E[x]it current buffer without saving' })
 vim.keymap.set('n', '<leader>o', function()
   require('mini.files').open(vim.api.nvim_buf_get_name(0), true)
   require('mini.files').reveal_cwd()
