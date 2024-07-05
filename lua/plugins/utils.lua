@@ -53,7 +53,6 @@ return {
   -- Add support for multiple cursors
   {
     "brenton-leighton/multiple-cursors.nvim",
-    version = "*",
     event = "VeryLazy",
     opts = {},
   },
