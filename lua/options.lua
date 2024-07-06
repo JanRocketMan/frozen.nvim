@@ -71,7 +71,13 @@ vim.o.fillchars = 'fold: '
 -- If no file or folder is specified, startup by showing list of recent files
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
-    require('telescope').extensions.recent_files.pick()
+    -- Based on https://github.com/neovim/neovim/issues/25369#issuecomment-1734660214
+    if vim.api.nvim_buf_get_offset(0, 0) <= 0 then
+      local handle = io.open(vim.api.nvim_buf_get_name(0))
+      if handle == nil then
+        require('telescope').extensions.recent_files.pick()
+      end
+    end
   end,
 })
 -- Highlight when yanking (copying) text
