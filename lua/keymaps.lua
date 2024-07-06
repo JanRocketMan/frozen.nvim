@@ -45,7 +45,10 @@ vim.keymap.set('n', '<leader>hh', function() require('telescope.builtin').help_t
 vim.keymap.set('n', '<leader>hk', function() require('telescope.builtin').keymaps() end, { desc = 'Search Keymaps' })
 vim.keymap.set('n', '<leader>f', function() require('telescope.builtin').find_files() end, { desc = 'Search [F]iles' })
 vim.keymap.set('n', '<leader>s', function() require('telescope.builtin').live_grep() end, { desc = '[S]earch by grep' })
-vim.keymap.set('n', '<leader>.', function() require('telescope.builtin').oldfiles() end, { desc = 'Search Recent Files ("." for repeat)' })
+vim.keymap.set('n', '<leader>.', function() require('telescope.builtin').oldfiles() end, { desc = 'Search Old Files ("." for repeat)' })
+vim.keymap.set('n', '<leader>n', function() 
+  require('telescope').extensions.recent_files.pick()
+end, { desc = 'Search Recent Files' })
 vim.keymap.set('n', '<leader><leader>', function() require('telescope.builtin').buffers() end, { desc = 'Find existing buffers' })
 vim.keymap.set('n', '<leader>/', function()
   require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {

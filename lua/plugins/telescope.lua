@@ -22,6 +22,8 @@ return {
       { 'nvim-telescope/telescope-ui-select.nvim' },
       -- Run terminal commands in telescope
       {'jonarrien/telescope-cmdline.nvim'},
+      -- More convenient recent files display
+      {"smartpde/telescope-recent-files"},
       -- Useful for getting pretty icons, but requires a Nerd Font.
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
@@ -69,22 +71,19 @@ return {
       require('telescope').setup {
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
-        --
-        -- defaults = {
-        --   mappings = {
-        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-        --   },
-        -- },
         -- pickers = {}
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
           },
+          ['recent_files'] = {
+            include_current_file = false
+          },
         },
         defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
+          -- Exit telescope with single <Esc> since I don't need normal mode
           mappings = {
-            n = { s = flash },
-            i = { ["<c-t>"] = flash },
+             i = { ["<Esc>"] = "close", ["<c-t>"] = flash},
           },
         })
       }
@@ -93,6 +92,7 @@ return {
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
       pcall(require('telescope').load_extension, 'cmdline')
+      pcall(require('telescope').load_extension, 'recent_files')
 
     end,
   },
