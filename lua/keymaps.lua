@@ -31,7 +31,7 @@ vim.keymap.set('n', '<leader>|', function() require("multiple-cursors").align() 
 
 -- File manipulation hotkeys
 vim.keymap.set('n', '<leader>i', vim.cmd.write, { desc = 'Wr[i]te current file' })
-vim.keymap.set('n', '<leader>q', function() vim.cmd('qa!') end, { desc = 'E[x]it current buffer without saving' })
+vim.keymap.set('n', '<leader>q', function() vim.cmd('q') end, { desc = 'E[x]it current buffer without saving' })
 vim.keymap.set('n', '<leader>o', function()
   require('mini.files').open(vim.api.nvim_buf_get_name(0), true)
   require('mini.files').reveal_cwd()
@@ -56,7 +56,8 @@ vim.keymap.set('n', '<leader>/', function()
     previewer = false,
   })
 end, { desc = '[/] Fuzzily search in current buffer' })
-vim.api.nvim_set_keymap('n', '<leader>:', ':Telescope cmdline<CR>', { noremap = true, desc = "Open cmdline in telescope" })
+vim.api.nvim_set_keymap('n', ';', ':Telescope cmdline<CR>', { noremap = true, desc = "Open cmdline in telescope" })
+vim.api.nvim_set_keymap('n', ',', ';', { noremap = true, desc = "Go backwards (remap for ; key)" })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
