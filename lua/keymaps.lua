@@ -7,7 +7,7 @@
 -- Clear higlhight on search by pressing <Esc> in normal mode
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- Toggle line numbers (they are disabled by default)
-vim.keymap.set('n', '<leader>l', 
+vim.keymap.set('n', '<leader>l',
   '<cmd>let [&nu, &rnu] = [!&nu, !&rnu]<CR>',
   { desc = 'Toggle [l]ine numbers' }
 )

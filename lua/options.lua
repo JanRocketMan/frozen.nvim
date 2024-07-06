@@ -68,6 +68,12 @@ vim.o.foldenable = false
 vim.o.foldtext = ''
 vim.o.fillchars = 'fold: '
 
+-- If no file or folder is specified, startup by showing list of recent files
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    require('telescope').extensions.recent_files.pick()
+  end,
+})
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',

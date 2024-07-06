@@ -24,7 +24,7 @@ return {
     },}
   },
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', 
+  { 'numToStr/Comment.nvim',
     config = function()
       require('Comment').setup()
     end 
@@ -55,6 +55,12 @@ return {
     "brenton-leighton/multiple-cursors.nvim",
     event = "VeryLazy",
     opts = {},
+  },
+  -- Show spaces as dots in visual mode
+  {
+   'mcauley-penney/visual-whitespace.nvim',
+    opts = {nl_char = '', cr_char = ''},
+    config = true
   },
   -- Show pending keybinds.
   {'folke/which-key.nvim', config = function() require('which-key').setup() end},
