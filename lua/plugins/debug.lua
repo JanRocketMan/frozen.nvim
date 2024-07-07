@@ -1,4 +1,4 @@
-return {
+return {{
   -- NOTE: Yes, you can install new plugins here!
   'mfussenegger/nvim-dap',
   -- NOTE: And you can specify dependencies as well
@@ -67,4 +67,21 @@ return {
       dapui.close()
     end
   end,
-}
+},
+-- Add autocompletion to REPL terminal during debugging
+{
+  'rcarriga/cmp-dap',
+  config = function()
+    require("cmp").setup({
+      enabled = function()
+        return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+        or require("cmp_dap").is_dap_buffer()
+      end
+    })
+    require("cmp").setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+      sources = {
+        { name = "dap" },
+      },
+    })
+  end
+}}

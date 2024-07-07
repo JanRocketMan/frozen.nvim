@@ -88,7 +88,7 @@ return {
         defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
           -- Exit telescope with single <Esc> since I don't need normal mode
           mappings = {
-             i = { ["<Esc>"] = "close", ["<c-s>"] = flash},
+             i = { ["<Esc>"] = "close", ["<Tab>"] = flash},
           },
         })
       }

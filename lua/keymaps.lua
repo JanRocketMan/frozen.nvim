@@ -98,4 +98,12 @@ end, { desc = 'Debug: Set Conditional [B]reakpoint' })
 -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
 vim.keymap.set('n', '<F8>', function() require('dapui').toggle() end, { desc = 'Debug: See last session result.' })
 
+-- Add pomodoro timer for better work management
+vim.keymap.set('n', '<leader>wb', function() 
+  vim.cmd("TimerStart " .. vim.fn.input("Enter time:", "25m") .. " Work") 
+end, {desc = '[B]egin pomodoro timer'})
+vim.keymap.set('n', '<leader>ws', function() vim.cmd("TimerShow") end, {desc = '[S]how timer'})
+vim.keymap.set('n', '<leader>wh', function() vim.cmd("TimerHide") end, {desc = '[H]ide timer'})
+vim.keymap.set('n', '<leader>wd', function() vim.cmd("TimerStop") end, {desc = '[D]elete timer'})
+
 -- vim: ts=2 sts=2 sw=2 et
