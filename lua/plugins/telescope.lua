@@ -77,13 +77,18 @@ return {
             require('telescope.themes').get_dropdown(),
           },
           ['recent_files'] = {
-            include_current_file = false
+            include_current_file = false,
+            only_cwd = true,
+          },
+          -- Reduce height of history window in telescope cmdline
+          ['cmdline'] = {
+            picker = {layout_config = {height = 10}}
           },
         },
         defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
           -- Exit telescope with single <Esc> since I don't need normal mode
           mappings = {
-             i = { ["<Esc>"] = "close", ["<c-t>"] = flash},
+             i = { ["<Esc>"] = "close", ["<c-s>"] = flash},
           },
         })
       }

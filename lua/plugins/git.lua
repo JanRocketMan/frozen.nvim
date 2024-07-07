@@ -78,6 +78,13 @@ return {
     'moyiz/git-dev.nvim',
     event = 'VeryLazy',
     opts = {},
+  },
+  -- Show git log for a particular visual selection
+  {
+    'niuiic/git-log.nvim',
+    event = 'VeryLazy',
+    opts = {win = {width_ratio = 1.0, height_ratio = 1.0}},
+    dependencies =  {'niuiic/core.nvim'},
   }
 }
 -- vim: ts=2 sts=2 sw=2 et
