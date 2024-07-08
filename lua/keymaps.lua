@@ -85,6 +85,15 @@ vim.keymap.set('n', '<leader>hg',
 )
 vim.keymap.set('v', '<leader>hl', function() require("git-log").check_log() end, { desc = 'Show git log of current selection'})
 
+-- Keymaps to switch directory
+vim.keymap.set('n', '<leader>wd', function() vim.cmd('CdProject') end, { desc = 'Switch to other [D]irectory'})
+vim.keymap.set('n', '<leader>wa', function() vim.cmd('CdProjectAdd') end, { desc = 'Add current directory'})
+vim.keymap.set('n', '<leader>wb', function() vim.cmd('CdProjectBack') end, { desc = 'Switch between current and previous directory'})
+vim.keymap.set('n', '<leader>wm', function() vim.cmd('CdProjectManualAdd') end, { desc = 'Manually add new directory'})
+vim.keymap.set('n', '<leader>wh', function()
+  vim.fn.setreg('+', vim.fn.expand('%:p'))
+end, { desc = 'Copy absolute path of current file to buffer'})
+
 -- Basic debugging keymaps
 vim.keymap.set('n', '<F4>', function() require('dap').continue() end, { desc = 'Debug: Start/Continue' })
 vim.keymap.set('n', '<F5>', function() require('dap').step_into() end, { desc = 'Debug: Step Into' })
@@ -98,12 +107,9 @@ end, { desc = 'Debug: Set Conditional [B]reakpoint' })
 -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
 vim.keymap.set('n', '<F8>', function() require('dapui').toggle() end, { desc = 'Debug: See last session result.' })
 
--- Add pomodoro timer for better work management
-vim.keymap.set('n', '<leader>wb', function() 
-  vim.cmd("TimerStart " .. vim.fn.input("Enter time:", "25m") .. " Work") 
-end, {desc = '[B]egin pomodoro timer'})
-vim.keymap.set('n', '<leader>ws', function() vim.cmd("TimerShow") end, {desc = '[S]how timer'})
-vim.keymap.set('n', '<leader>wh', function() vim.cmd("TimerHide") end, {desc = '[H]ide timer'})
-vim.keymap.set('n', '<leader>wd', function() vim.cmd("TimerStop") end, {desc = '[D]elete timer'})
+-- Fix __repr__ attributes for pytorch Tensors to improve stack readability during debugging
+vim.keymap.set('n', '<leader>td', function()
+  require('dap.repl').execute('import torch; torch.Tensor.__repr__ = lambda self: f"[{self.min().float():.1f}, {self.max().float():.1f}], {self.shape}, {self.dtype}, {self.device}"')
+end, { desc = 'Toggle Py[t]orch [d]ebug __repr__'})
 
 -- vim: ts=2 sts=2 sw=2 et

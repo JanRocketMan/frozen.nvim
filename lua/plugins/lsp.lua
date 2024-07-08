@@ -101,6 +101,8 @@ return {
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
       -- launch installed language server
       require('lspconfig').pyright.setup{}
+      -- require('lspconfig').zls.setup{}
+      -- require('lspconfig').clangd.setup{}
     end,
   },
   -- Add matching brackets automatically

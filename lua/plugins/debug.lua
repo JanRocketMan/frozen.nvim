@@ -8,13 +8,27 @@ return {{
 
     -- Required dependency for nvim-dap-ui
     'nvim-neotest/nvim-nio',
-    'mfussenegger/nvim-dap-python',
   },
   config = function()
     local dap = require 'dap'
     local dapui = require 'dapui'
 
-    require('dap-python').setup()
+    dap.adapters.python = function(cb, config)
+      if config.request == 'attach' then
+        ---@diagnostic disable-next-line: undefined-field
+        local port = (config.connect or config).port
+        ---@diagnostic disable-next-line: undefined-field
+        local host = (config.connect or config).host or '127.0.0.1'
+        cb({
+          type = 'server',
+          port = assert(port, '`connect.port` is required for a python `attach` configuration'),
+          host = host,
+          options = {
+            source_filetype = 'python',
+          },
+        })
+      end
+    end
     -- A simple config to debug via attach
     -- Simply run `python -m debugpy --listen 5678 --wait-for-client`
     -- To start it
@@ -37,6 +51,7 @@ return {{
     -- Dap UI setup
     -- For more information, see |:help nvim-dap-ui|
     dapui.setup {
+      controls = {enabled = false},
       layouts = { {
         elements = {{
           id = "scopes",
