@@ -19,8 +19,12 @@ vim.keymap.set('n', 'N', 'Nzzzv', { desc = 'Goto prev with centering' })
 vim.keymap.set({'n', 'x', 'o'}, '<leader>y', '"+y', { desc = '[Y]ank to the system clipboard' })
 vim.keymap.set({'n', 'x', 'o'}, '<leader>p', '"+P', { desc = '[P]aste from system clipboard' })
 vim.keymap.set({'n', 'x', 'o'}, '<leader>r', '"hy:%s/<C-r>h//g<left><left>', { desc = '[R]eplace all occurences of current selection in current buffer' })
+-- delete single character without copying into register
+vim.keymap.set('n', 'x', '"_x')
+-- Keep last yanked when pasting
+vim.keymap.set('v', 'p', '"_dP')
 
- -- Use fast navigation w flash
+-- Use fast navigation w flash
 vim.keymap.set({'n', 'x', 'o'}, 's', function() require('flash').jump() end, {desc = "Flash jump"})
 vim.keymap.set({'n', 'x', 'o'}, 'S', function() require('flash').treesitter() end, {desc = "Flash jump treesitter"})
 

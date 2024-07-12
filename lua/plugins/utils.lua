@@ -10,12 +10,12 @@ return {
   -- File explorer
   { 'echasnovski/mini.files', opts = {
     mappings = {
-      close = '<ESC>',
+      close = 'q',
       go_in = 'n',
       go_in_plus = '<Enter>',
       go_out = 't',
       go_out_plus = '<BS>',
-      reset = 'q',
+      reset = '<ESC>',
       reveal_cwd = '@',
       show_help = 'g?',
       synchronize = '=',
