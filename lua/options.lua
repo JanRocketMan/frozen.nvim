@@ -10,6 +10,7 @@ vim.o.cmdheight = 0
 -- Remove this line and add proper status line (e.g. mini.statusline)
 -- if you need it.
 vim.opt.laststatus = 0
+vim.opt.conceallevel = 1
 
 -- Don't show the mode
 vim.opt.showmode = false

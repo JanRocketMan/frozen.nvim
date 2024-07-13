@@ -77,6 +77,11 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagn
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
 vim.keymap.set('n', '<leader>k', vim.diagnostic.setloclist, { desc = 'Open diagnostic [k]uickfix list' })
 
+-- Obsidian keymaps
+vim.keymap.set('n', '<leader>tn', function() vim.cmd('ObsidianNew') end, {desc = 'Create a new Obsidian note'})
+vim.keymap.set('n', '<leader>tb', function() vim.cmd('ObsidianBacklinks') end, {desc = 'Open backlinks of note in obsidian'})
+vim.keymap.set('n', '<leader>tr', function() vim.cmd('ObsidianRename') end, {desc = 'Rename current note and update all references'})
+
 -- Keymaps for git plugins
 vim.keymap.set('n', '<leader>g', function() require('neogit'):open() end, { desc = 'Open neo[g]it window'})
 vim.keymap.set('n', '<leader>hg', 

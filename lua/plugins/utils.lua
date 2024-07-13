@@ -65,4 +65,41 @@ return {
   },
   -- Show pending keybinds.
   {'folke/which-key.nvim', config = function() require('which-key').setup() end},
+  -- Create notes with obsidian
+  {
+    "epwalsh/obsidian.nvim",
+    version = "*",
+    lazy=true,
+    ft='markdown',
+    opts = {
+      workspaces = {
+        {
+          name = "main",
+          path = "~/obsidian",
+        }
+      },
+      new_notes_location="current_dir",
+      picker = {
+        mappings = {
+          new = "<C-o>",
+          insert_link = "<C-l>",
+        },
+      },
+      note_id_func = function(title)
+        local suffix = ""
+        if title ~= nil then
+          suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+        else
+          for _ = 1, 4 do
+            suffix = suffix .. string.char(math.random(65, 90))
+          end
+        end
+        return tostring(os.date('%d-%m-%Y')) .. "-" .. suffix
+      end,
+      note_path_func = function(spec)
+        local path = spec.dir / spec.title
+        return path:with_suffix(".md")
+      end,
+    },
+  }
 }
