@@ -16,7 +16,9 @@ vim.keymap.set('n', 'N', 'Nzzzv', { desc = 'Goto prev with centering' })
 vim.keymap.set({'n', 'x', 'o'}, '<leader>y', '"+y', { desc = '[Y]ank to the system clipboard' })
 vim.keymap.set({'n', 'x', 'o'}, '<leader>p', '"+P', { desc = '[P]aste from system clipboard' })
 vim.keymap.set({'n', 'x', 'o'}, '<leader>r', '"hy:%s/<C-r>h//g<left><left>', { desc = '[R]eplace all occurences of current selection in current buffer' })
--- delete single character without copying into register
+-- Disable yanking of deleted text in normal mode
+vim.keymap.set('n', 'd', '"_d')
+vim.keymap.set('n', 'c', '"_c')
 vim.keymap.set('n', 'x', '"_x')
 -- Keep last yanked when pasting
 vim.keymap.set('v', 'p', '"_dP')
