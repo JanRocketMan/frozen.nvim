@@ -35,6 +35,23 @@ return {
   --  },
   -- },
   -- Add motions to jump to current function definition
-  'nvim-treesitter/nvim-treesitter-textobjects',
+  {
+    'nvim-treesitter/nvim-treesitter-textobjects', 
+    config = function()
+      require'nvim-treesitter.configs'.setup{
+        textobjects = {
+          swap = {
+            enable = true,
+            swap_next = {
+              ["<leader>S<right>"] = "@parameter.inner",
+            },
+            swap_previous = {
+             ["<leader>S<left>"] = "@parameter.inner",
+            },
+          },
+        },
+      }
+    end,
+  },
 }
 -- vim: ts=2 sts=2 sw=2 et

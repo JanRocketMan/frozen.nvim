@@ -11,7 +11,7 @@ vim.o.cmdheight = 0
 -- if you need it.
 vim.opt.laststatus = 0
 
--- Don't show the mode, since it's already in the status line
+-- Don't show the mode
 vim.opt.showmode = false
 
 -- Sync clipboard between OS and Neovim.

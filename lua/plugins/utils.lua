@@ -10,17 +10,10 @@ return {
   -- File explorer
   { 'echasnovski/mini.files', opts = {
     mappings = {
-      close = 'q',
-      go_in = 'n',
+      close = '<ESC>',
       go_in_plus = '<Enter>',
-      go_out = 't',
       go_out_plus = '<BS>',
-      reset = '<ESC>',
-      reveal_cwd = '@',
-      show_help = 'g?',
-      synchronize = '=',
-      trim_left = '<',
-      trim_right = '>',
+      reset = 'rs',
     },}
   },
   -- "gc" to comment visual regions/lines

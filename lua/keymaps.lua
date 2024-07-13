@@ -7,10 +7,7 @@
 -- Clear higlhight on search by pressing <Esc> in normal mode
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- Toggle line numbers (they are disabled by default)
-vim.keymap.set('n', '<leader>l',
-  '<cmd>let [&nu, &rnu] = [!&nu, !&rnu]<CR>',
-  { desc = 'Toggle [l]ine numbers' }
-)
+vim.keymap.set('n', '<leader>l', '<cmd>let &nu = !&nu<CR>', { desc = 'Toggle [l]ine numbers' })
 -- A set of awesome mappings inspired by the @ThePrimeagen config
 vim.keymap.set('n', '<PageUp>', '<C-u>zz', { desc = 'Move [U]p with centering' })
 vim.keymap.set('n', '<PageDown>', '<C-d>zz', { desc = 'Move [D]own with centering' })
@@ -40,6 +37,7 @@ vim.keymap.set('n', '<leader>o', function()
   require('mini.files').open(vim.api.nvim_buf_get_name(0), true)
   require('mini.files').reveal_cwd()
 end, { desc = '[O]pen file tree for current buffer' })
+vim.keymap.set('n', 'q', function() require('mini.files').close() end, { desc = 'Close minifiles buffer' })
 
 -- Code folding is supported via treesitter. Simply type za to fold/unfold current region
 -- Toggle visual selection comments by typing gc
