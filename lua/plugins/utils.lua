@@ -78,6 +78,9 @@ return {
           path = "~/obsidian",
         }
       },
+      templates = {
+        folder = '~/obsidian/templates',
+      },
       new_notes_location="current_dir",
       picker = {
         mappings = {

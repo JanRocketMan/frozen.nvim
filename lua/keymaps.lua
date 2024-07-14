@@ -81,6 +81,10 @@ vim.keymap.set('n', '<leader>k', vim.diagnostic.setloclist, { desc = 'Open diagn
 vim.keymap.set('n', '<leader>tn', function() vim.cmd('ObsidianNew') end, {desc = 'Create a new Obsidian note'})
 vim.keymap.set('n', '<leader>tb', function() vim.cmd('ObsidianBacklinks') end, {desc = 'Open backlinks of note in obsidian'})
 vim.keymap.set('n', '<leader>tr', function() vim.cmd('ObsidianRename') end, {desc = 'Rename current note and update all references'})
+vim.keymap.set('v', '<leader>tl', ':ObsidianLink .md<CR>', {desc = 'Link current selection to existing note'})
+vim.keymap.set('v', '<leader>te', ':ObsidianExtractNote<CR>', {desc = 'Extract current selection into a new note'})
+vim.keymap.set('n', '<leader>tt', ':ObsidianTemplate<CR>', {desc = 'Insert a template from the templates folder'})
+vim.keymap.set('n', '<leader>to', ':ObsidianOpen<CR>', {desc = 'Open current note in Obsidian app'})
 
 -- Keymaps for git plugins
 vim.keymap.set('n', '<leader>g', function() require('neogit'):open() end, { desc = 'Open neo[g]it window'})
