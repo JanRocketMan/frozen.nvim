@@ -8,7 +8,7 @@ return {
       lint.linters_by_ft = {
         -- markdown = { 'markdownlint' },
         python = { 'ruff' },
-        -- c = { 'clangtidy' }
+        c = { 'clangtidy' }
       }
 
       -- Create autocommand which carries out the actual linting
@@ -40,7 +40,7 @@ return {
       formatters_by_ft = {
         lua = { 'stylua' },
         python = { 'ruff_fix', 'ruff_organize_imports', 'ruff_format' },
-        -- c = {'clang-format'}
+        c = {'clang-format'}
       },
     },
   },

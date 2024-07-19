@@ -13,8 +13,6 @@ vim.keymap.set('n', '<PageUp>', '<C-u>zz', { desc = 'Move [U]p with centering' }
 vim.keymap.set('n', '<PageDown>', '<C-d>zz', { desc = 'Move [D]own with centering' })
 vim.keymap.set('n', 'n', 'nzzzv', { desc = 'Goto next with centering' })
 vim.keymap.set('n', 'N', 'Nzzzv', { desc = 'Goto prev with centering' })
-vim.keymap.set({'n', 'x', 'o'}, '<leader>y', '"+y', { desc = '[Y]ank to the system clipboard' })
-vim.keymap.set({'n', 'x', 'o'}, '<leader>p', '"+P', { desc = '[P]aste from system clipboard' })
 vim.keymap.set({'n', 'x', 'o'}, '<leader>r', '"hy:%s/<C-r>h//g<left><left>', { desc = '[R]eplace all occurences of current selection in current buffer' })
 -- Disable yanking of deleted text in normal mode
 vim.keymap.set('n', 'd', '"_d')
@@ -27,11 +25,6 @@ vim.keymap.set('v', 'p', '"_dP')
 vim.keymap.set({'n', 'x', 'o'}, 's', function() require('flash').jump() end, {desc = "Flash jump"})
 vim.keymap.set({'n', 'x', 'o'}, 'S', function() require('flash').treesitter() end, {desc = "Flash jump treesitter"})
 
--- Support for multiple cursors
-vim.keymap.set({'n', 'i', 'x'}, "<C-Up>", "<Cmd>MultipleCursorsAddUp<CR>", {desc = "Add cursor and move up"})
-vim.keymap.set({'n', 'i', 'x'}, "<C-Down>", "<Cmd>MultipleCursorsAddDown<CR>", {desc = "Add cursor and move down"})
-vim.keymap.set('n', '<leader>|', function() require("multiple-cursors").align() end, {desc = "Align multiple cursors vertically by inserting spaces"})
-
 -- File manipulation hotkeys
 vim.keymap.set('n', '<leader>i', vim.cmd.write, { desc = 'Wr[i]te current file' })
 vim.keymap.set('n', '<leader>q', function() vim.cmd('q') end, { desc = 'E[x]it current buffer without saving' })
@@ -40,16 +33,16 @@ vim.keymap.set('n', '<leader>o', function()
   require('mini.files').reveal_cwd()
 end, { desc = '[O]pen file tree for current buffer' })
 vim.keymap.set('n', 'q', function() require('mini.files').close() end, { desc = 'Close minifiles buffer' })
+vim.keymap.set('n', '<leader>wh', function()
+  vim.fn.setreg('+', vim.fn.expand('%:p'))
+end, { desc = 'Copy absolute path of current file to buffer'})
 
 -- Code folding is supported via treesitter. Simply type za to fold/unfold current region
 -- Toggle visual selection comments by typing gc
 
 -- A set of telescope keymaps. See `:help telescope.builtin`
-vim.keymap.set('n', '<leader>hh', function() require('telescope.builtin').help_tags() end, { desc = 'Search [h]elp' })
-vim.keymap.set('n', '<leader>hk', function() require('telescope.builtin').keymaps() end, { desc = 'Search Keymaps' })
 vim.keymap.set('n', '<leader>f', function() require('telescope.builtin').find_files() end, { desc = 'Search [F]iles' })
 vim.keymap.set('n', '<leader>s', function() require('telescope.builtin').live_grep() end, { desc = '[S]earch by grep' })
-vim.keymap.set('n', '<leader>.', function() require('telescope.builtin').oldfiles() end, { desc = 'Search Old Files ("." for repeat)' })
 vim.keymap.set('n', '<leader>n', function() 
   require('telescope').extensions.recent_files.pick()
 end, { desc = 'Search Recent Files' })
@@ -88,24 +81,7 @@ vim.keymap.set('n', '<leader>to', ':ObsidianOpen<CR>', {desc = 'Open current not
 
 -- Keymaps for git plugins
 vim.keymap.set('n', '<leader>g', function() require('neogit'):open() end, { desc = 'Open neo[g]it window'})
-vim.keymap.set('n', '<leader>hg', 
-  function() local repo = vim.fn.input 'Repository name / URI: '
-        if repo ~= '' then
-          require('git-dev').open(repo)
-        end
-  end,
-  { desc = 'Open remote repository' }
-)
 vim.keymap.set('v', '<leader>hl', function() require("git-log").check_log() end, { desc = 'Show git log of current selection'})
-
--- Keymaps to switch directory
-vim.keymap.set('n', '<leader>wd', function() vim.cmd('CdProject') end, { desc = 'Switch to other [D]irectory'})
-vim.keymap.set('n', '<leader>wa', function() vim.cmd('CdProjectAdd') end, { desc = 'Add current directory'})
-vim.keymap.set('n', '<leader>wb', function() vim.cmd('CdProjectBack') end, { desc = 'Switch between current and previous directory'})
-vim.keymap.set('n', '<leader>wm', function() vim.cmd('CdProjectManualAdd') end, { desc = 'Manually add new directory'})
-vim.keymap.set('n', '<leader>wh', function()
-  vim.fn.setreg('+', vim.fn.expand('%:p'))
-end, { desc = 'Copy absolute path of current file to buffer'})
 
 -- Basic debugging keymaps
 vim.keymap.set('n', '<F4>', function() require('dap').continue() end, { desc = 'Debug: Start/Continue' })

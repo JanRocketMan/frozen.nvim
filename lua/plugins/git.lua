@@ -74,11 +74,6 @@ return {
       end,
     },
   },
-  {
-    'moyiz/git-dev.nvim',
-    event = 'VeryLazy',
-    opts = {},
-  },
   -- Show git log for a particular visual selection
   {
     'niuiic/git-log.nvim',
