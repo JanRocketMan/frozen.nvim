@@ -38,10 +38,18 @@ return {
     'JanRocketMan/flash.nvim',
     event = "VeryLazy",
     -- Add autojumps if match is single, add support of single-key motions (f/F and t/T)
+    -- Also disable background highlighting
     ---@type Flash.Config
     opts = {
       jump = {autojump = true},
-      modes = {char = {jump_labels = true, multi_line = false, jump = {autojump = true}}}
+      modes = {
+        char = {
+          jump_labels = true,
+          multi_line = false,
+          jump = {autojump = true}, highlight = {backdrop = false}
+        }
+      },
+      highlight = {backdrop = false}
     },
     -- stylua: ignore
   },
