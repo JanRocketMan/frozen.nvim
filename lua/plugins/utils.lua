@@ -71,7 +71,7 @@ return {
       workspaces = {
         {
           name = "main",
-          path = "~/obsidian",
+          path = "~/zet",
         }
       },
       new_notes_location="current_dir",
