@@ -74,9 +74,6 @@ return {
           path = "~/obsidian",
         }
       },
-      templates = {
-        folder = '~/obsidian/templates',
-      },
       new_notes_location="current_dir",
       picker = {
         mappings = {
@@ -84,17 +81,8 @@ return {
           insert_link = "<C-l>",
         },
       },
-      note_id_func = function(title)
-        local suffix = ""
-        if title ~= nil then
-          suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
-        else
-          for _ = 1, 4 do
-            suffix = suffix .. string.char(math.random(65, 90))
-          end
-        end
-        return tostring(os.date('%d-%m-%Y')) .. "-" .. suffix
-      end,
+      ui = {enable = false},
+      disable_frontmatter = true,
       note_path_func = function(spec)
         local path = spec.dir / spec.title
         return path:with_suffix(".md")

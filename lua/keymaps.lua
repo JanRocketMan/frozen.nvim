@@ -72,13 +72,17 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagn
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
 vim.keymap.set('n', '<leader>k', vim.diagnostic.setloclist, { desc = 'Open diagnostic [k]uickfix list' })
 
--- Obsidian keymaps
-vim.keymap.set('n', '<leader>tn', function() vim.cmd('ObsidianNew') end, {desc = 'Create a new Obsidian note'})
-vim.keymap.set('n', '<leader>tb', function() vim.cmd('ObsidianBacklinks') end, {desc = 'Open backlinks of note in obsidian'})
-vim.keymap.set('n', '<leader>tr', function() vim.cmd('ObsidianRename') end, {desc = 'Rename current note and update all references'})
+-- Zettelkasten keymaps
+vim.keymap.set('n', '<leader>tn', function()
+  note_name = vim.fn.input 'Note name: '
+  if note_name ~= '' then
+    vim.cmd('ObsidianNew ' .. note_name)
+    vim.cmd.write()
+  end
+end, {desc = 'Create a new Obsidian note and save it'})
+vim.keymap.set('n', '<leader>tb', ':ObsidianBacklinks<CR>', {desc = 'Open backlinks of current note'})
 vim.keymap.set('v', '<leader>tl', ':ObsidianLink .md<CR>', {desc = 'Link current selection to existing note'})
 vim.keymap.set('v', '<leader>te', ':ObsidianExtractNote<CR>', {desc = 'Extract current selection into a new note'})
-vim.keymap.set('n', '<leader>tt', ':ObsidianTemplate<CR>', {desc = 'Insert a template from the templates folder'})
 vim.keymap.set('n', '<leader>to', ':ObsidianOpen<CR>', {desc = 'Open current note in Obsidian app'})
 
 -- Keymaps for git plugins
