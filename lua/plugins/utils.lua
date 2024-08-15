@@ -32,10 +32,8 @@ return {
     end,
   },
   -- Fast navigation in the current buffer
-  -- This is a hotfix repo that will exist until
-  -- https://github.com/folke/flash.nvim/pull/283 is merged
   {
-    'JanRocketMan/flash.nvim',
+    'folke/flash.nvim',
     event = "VeryLazy",
     -- Add autojumps if match is single, add support of single-key motions (f/F and t/T)
     -- Also disable background highlighting
