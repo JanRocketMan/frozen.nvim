@@ -64,6 +64,13 @@ vim.o.foldenable = false
 vim.o.foldtext = ''
 vim.o.fillchars = 'fold: '
 
+-- Remove '~' signs when we reach end of file
+vim.api.nvim_create_autocmd("VimEnter",{
+  callback = function()
+    vim.opt.fillchars = { eob = ' ' }
+  end
+})
+
 -- If no file or folder is specified, startup by showing list of recent files
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
