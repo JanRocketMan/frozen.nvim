@@ -79,12 +79,28 @@ return {
           insert_link = "<C-l>",
         },
       },
-      ui = {enable = false},
+      ui = {enable = true},
+      callbacks = {
+        enter_note = function()
+          vim.wo.conceallevel = 1
+        end,
+        leave_note = function()
+          vim.wo.conceallevel = 0
+        end,
+      },
       disable_frontmatter = true,
       note_path_func = function(spec)
         local path = spec.dir / spec.title
         return path:with_suffix(".md")
       end,
+    },
+  },
+  {
+    "jiaoshijie/undotree",
+    dependencies = "nvim-lua/plenary.nvim",
+    config = true,
+    keys = {
+      { "<leader>u", "<cmd>lua require('undotree').toggle()<cr>" },
     },
   }
 }
