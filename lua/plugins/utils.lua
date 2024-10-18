@@ -7,6 +7,8 @@ return {
   --  - yinq - [Y]ank [I]nside [N]ext [']quote
   --  - ci'  - [C]hange [I]nside [']quote
   { 'echasnovski/mini.ai', opts = { n_lines = 500 } },
+  -- Automatically add character pairs
+  { 'echasnovski/mini.pairs', version = '*', config = true },
   -- File explorer
   { 'echasnovski/mini.files', opts = {
     mappings = {
