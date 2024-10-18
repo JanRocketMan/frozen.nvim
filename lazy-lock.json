@@ -13,6 +13,7 @@
   "mini.ai": { "branch": "main", "commit": "ebf806de0292ef89b2756cfb0b55040901d1c441" },
   "mini.files": { "branch": "main", "commit": "b8c2024861f235e63670163043634d8a44affe01" },
   "mini.pairs": { "branch": "main", "commit": "e543c760edc5e746e5b6cbd02c066c17ead3ef16" },
+  "mini.surround": { "branch": "main", "commit": "0e67c4bc147f2a15cee94e7c94dcc0e115b9f55e" },
   "neogit": { "branch": "master", "commit": "e25d4a757f9f6e4dba11c85235b9e99d6e38e262" },
   "nvim-dap": { "branch": "master", "commit": "6f79b822997f2e8a789c6034e147d42bc6706770" },
   "nvim-dap-ui": { "branch": "master", "commit": "b7267003ba4dd860350be86f75b9d9ea287cedca" },

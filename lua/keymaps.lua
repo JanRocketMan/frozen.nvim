@@ -22,6 +22,8 @@ vim.keymap.set('n', 'c', '"_c')
 vim.keymap.set('n', 'x', '"_x')
 -- Keep last yanked when pasting
 vim.keymap.set('v', 'p', '"_dP')
+-- Disable e key in normal mode to use mini.surround with e leader
+vim.keymap.set("n", 'e', "<nop>")
 
 -- Use fast navigation w flash
 vim.keymap.set({'n', 'x', 'o'}, 's', function() require('flash').jump() end, {desc = "Flash jump"})

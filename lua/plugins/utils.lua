@@ -9,6 +9,17 @@ return {
   { 'echasnovski/mini.ai', opts = { n_lines = 500 } },
   -- Automatically add character pairs
   { 'echasnovski/mini.pairs', version = '*', config = true },
+  -- Add better surroundings control
+  { 'echasnovski/mini.surround', version = '*',
+    opts = {
+      mappings = {
+        add = 'ea', -- Add surrounding in Normal and Visual modes
+        delete = 'ed', -- Delete surrounding
+        find = 'ef', -- Find surrounding (to the right)
+        replace = 'er', -- Replace surrounding
+      }
+    }
+  },
   -- File explorer
   { 'echasnovski/mini.files', opts = {
     mappings = {
