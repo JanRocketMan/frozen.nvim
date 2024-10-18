@@ -29,12 +29,12 @@ vim.keymap.set({'n', 'x', 'o'}, 'S', function() require('flash').treesitter() en
 
 -- File manipulation hotkeys
 vim.keymap.set('n', '<leader>i', vim.cmd.write, { desc = 'Wr[i]te current file' })
-vim.keymap.set('n', '<leader>q', function() vim.cmd('q') end, { desc = 'E[x]it current buffer without saving' })
+vim.keymap.set('n', '<leader>q', function() vim.cmd('q!') end, { desc = 'E[x]it current buffer without saving' })
 vim.keymap.set('n', '<leader>o', function()
   require('mini.files').open(vim.api.nvim_buf_get_name(0), true)
   require('mini.files').reveal_cwd()
 end, { desc = '[O]pen file tree for current buffer' })
-vim.keymap.set('n', 'q', function() require('mini.files').close() end, { desc = 'Close minifiles buffer' })
+vim.keymap.set('n', 'Q', function() require('mini.files').close() end, { desc = 'Close minifiles buffer' })
 vim.keymap.set('n', '<leader>wh', function()
   vim.fn.setreg('+', vim.fn.expand('%:p'))
 end, { desc = 'Copy absolute path of current file to buffer'})
@@ -106,5 +106,8 @@ vim.keymap.set('n', '<F8>', function() require('dapui').toggle() end, { desc = '
 vim.keymap.set('n', '<leader>td', function()
   require('dap.repl').execute('import torch; torch.Tensor.__repr__ = lambda self: f"[{self.min().float():.1f}, {self.max().float():.1f}], {self.shape}, {self.dtype}, {self.device}"')
 end, { desc = 'Toggle Py[t]orch [d]ebug __repr__'})
+vim.keymap.set('n', '<leader>td', function()
+  require('dap.repl').execute('from torchvision.utils import save_image as si')
+end, { desc = 'Toggle Py[t]orch v[i]sualization utils'})
 
 -- vim: ts=2 sts=2 sw=2 et

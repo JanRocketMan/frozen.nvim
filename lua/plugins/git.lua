@@ -78,7 +78,5 @@ return {
     opts = {win = {width_ratio = 1.0, height_ratio = 1.0}},
     dependencies =  {'niuiic/core.nvim'},
   },
-  -- Resolve git conflicts conveniently
-  {'akinsho/git-conflict.nvim', version = "*", config = true},
 }
 -- vim: ts=2 sts=2 sw=2 et
