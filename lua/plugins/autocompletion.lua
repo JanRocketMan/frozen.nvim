@@ -43,7 +43,7 @@ return {
             return require("codecompanion.adapters").extend("ollama", {
               schema = {
                 model = {
-                  default = "llama3:latest",
+                  default = "llama3.1:latest",
                 },
               },
             })
