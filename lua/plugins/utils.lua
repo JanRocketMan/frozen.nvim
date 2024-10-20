@@ -16,7 +16,10 @@ return {
         add = 'ea', -- Add surrounding in Normal and Visual modes
         delete = 'ed', -- Delete surrounding
         find = 'ef', -- Find surrounding (to the right)
+        find_left = 'eF', -- Find surrounding (to the left)
+        highlight = 'eh', -- Highlight surrounding
         replace = 'er', -- Replace surrounding
+        update_n_lines = 'en', -- Update `n_lines`
       }
     }
   },
@@ -28,12 +31,6 @@ return {
       go_out_plus = '<BS>',
       reset = 'rs',
     },}
-  },
-  -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim',
-    config = function()
-      require('Comment').setup()
-    end 
   },
   -- Set default colorscheme
   {
