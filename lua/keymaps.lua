@@ -112,4 +112,8 @@ vim.keymap.set('n', '<leader>td', function()
   require('dap.repl').execute('from torchvision.utils import save_image as si')
 end, { desc = 'Toggle Py[t]orch v[i]sualization utils'})
 
+vim.keymap.set({'n', 'v'}, '<C-a>', '<cmd>CodeCompanionActions<cr>', { noremap = true, silent = true })
+vim.keymap.set({'n', 'v'}, '<leader>a', '<cmd>CodeCompanionChat Toggle<cr>', { noremap = true, silent = true })
+vim.keymap.set('v', 'ga', '<cmd>CodeCompanionChat Add<cr>', { noremap = true, silent = true })
+
 -- vim: ts=2 sts=2 sw=2 et
