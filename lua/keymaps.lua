@@ -108,7 +108,7 @@ vim.keymap.set('n', '<F8>', function() require('dapui').toggle() end, { desc = '
 vim.keymap.set('n', '<leader>td', function()
   require('dap.repl').execute('import torch; torch.Tensor.__repr__ = lambda self: f"[{self.min().float():.1f}, {self.max().float():.1f}], {self.shape}, {self.dtype}, {self.device}"')
 end, { desc = 'Toggle Py[t]orch [d]ebug __repr__'})
-vim.keymap.set('n', '<leader>td', function()
+vim.keymap.set('n', '<leader>ti', function()
   require('dap.repl').execute('from torchvision.utils import save_image as si')
 end, { desc = 'Toggle Py[t]orch v[i]sualization utils'})
 
