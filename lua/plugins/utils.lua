@@ -39,8 +39,10 @@ return {
     init = function()
       require("catppuccin").setup({
         color_overrides = {
+          all = {
             red = "#faa0a0",
             maroon = "#ffd1dc",
+          },
         },
       })
       vim.cmd.colorscheme 'catppuccin-macchiato'
