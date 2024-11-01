@@ -34,18 +34,10 @@ return {
   },
   -- Set default colorscheme
   {
-    'catppuccin/nvim',
+    'tomasiser/vim-code-dark',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
-      require("catppuccin").setup({
-        color_overrides = {
-          all = {
-            red = "#faa0a0",
-            maroon = "#ffd1dc",
-          },
-        },
-      })
-      vim.cmd.colorscheme 'catppuccin-macchiato'
+      vim.cmd.colorscheme 'codedark'
       vim.cmd.hi 'Comment gui=none'
     end,
   },
