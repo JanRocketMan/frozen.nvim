@@ -16,14 +16,16 @@ vim.keymap.set('n', '<PageDown>', '<C-d>zz', { desc = 'Move [D]own with centerin
 vim.keymap.set('n', 'n', 'nzzzv', { desc = 'Goto next with centering' })
 vim.keymap.set('n', 'N', 'Nzzzv', { desc = 'Goto prev with centering' })
 vim.keymap.set({'n', 'x', 'o'}, '<leader>r', '"hy:%s/<C-r>h//g<left><left>', { desc = '[R]eplace all occurences of current selection in current buffer' })
+
+-- Some list of other convenient remaps for default keys
 -- Disable yanking of deleted text in normal mode
 vim.keymap.set('n', 'd', '"_d')
 vim.keymap.set('n', 'c', '"_c')
 vim.keymap.set('n', 'x', '"_x')
 -- Keep last yanked when pasting
 vim.keymap.set('v', 'p', '"_dP')
--- Disable e key in normal mode to use mini.surround with e leader
-vim.keymap.set("n", 'e', "<nop>")
+-- Remap line replace to line edit
+vim.keymap.set('n', 'R', 'S')
 
 -- Use fast navigation w flash
 vim.keymap.set({'n', 'x', 'o'}, 's', function() require('flash').jump() end, {desc = "Flash jump"})
@@ -31,6 +33,9 @@ vim.keymap.set({'n', 'x', 'o'}, 'S', function() require('flash').treesitter() en
 
 -- File manipulation hotkeys
 vim.keymap.set('n', '<leader>i', vim.cmd.write, { desc = 'Wr[i]te current file' })
+vim.keymap.set('n', '<leader>ti', function()
+  vim.b.disable_autoformat = not vim.b.disable_autoformat
+end, { desc = 'Toggle autoformatting'})
 vim.keymap.set('n', '<leader>q', function() vim.cmd('q!') end, { desc = 'E[x]it current buffer without saving' })
 vim.keymap.set('n', '<leader>o', function()
   require('mini.files').open(vim.api.nvim_buf_get_name(0), true)
@@ -108,9 +113,9 @@ vim.keymap.set('n', '<F8>', function() require('dapui').toggle() end, { desc = '
 vim.keymap.set('n', '<leader>td', function()
   require('dap.repl').execute('import torch; torch.Tensor.__repr__ = lambda self: f"[{self.min().float():.1f}, {self.max().float():.1f}], {self.shape}, {self.dtype}, {self.device}"')
 end, { desc = 'Toggle Py[t]orch [d]ebug __repr__'})
-vim.keymap.set('n', '<leader>ti', function()
+vim.keymap.set('n', '<leader>tp', function()
   require('dap.repl').execute('from torchvision.utils import save_image as si')
-end, { desc = 'Toggle Py[t]orch v[i]sualization utils'})
+end, { desc = '[T]oggle [P]ytorch visualization utils'})
 
 vim.keymap.set({'n', 'v'}, '<C-a>', '<cmd>CodeCompanionActions<cr>', { noremap = true, silent = true })
 vim.keymap.set({'n', 'v'}, '<leader>a', '<cmd>CodeCompanionChat Toggle<cr>', { noremap = true, silent = true })

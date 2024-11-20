@@ -13,13 +13,14 @@ return {
   { 'echasnovski/mini.surround', version = '*',
     opts = {
       mappings = {
-        add = 'ea', -- Add surrounding in Normal and Visual modes
-        delete = 'ed', -- Delete surrounding
-        find = 'ef', -- Find surrounding (to the right)
-        find_left = 'eF', -- Find surrounding (to the left)
-        highlight = 'eh', -- Highlight surrounding
-        replace = 'er', -- Replace surrounding
-        update_n_lines = 'en', -- Update `n_lines`
+        add = 'ga', -- Add surrounding in Normal and Visual modes
+        delete = 'gd', -- Delete surrounding
+        replace = 'gr', -- Replace surrounding
+        -- Disable rest of keymaps
+        find = '',
+        find_left = '',
+        highlight = '',
+        update_n_lines = '',
       }
     }
   },
