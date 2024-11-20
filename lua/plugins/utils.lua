@@ -14,8 +14,8 @@ return {
     opts = {
       mappings = {
         add = 'ga', -- Add surrounding in Normal and Visual modes
-        delete = 'gd', -- Delete surrounding
-        replace = 'gr', -- Replace surrounding
+        delete = 'gx', -- Delete surrounding
+        replace = 'gc', -- Replace surrounding
         -- Disable rest of keymaps
         find = '',
         find_left = '',
