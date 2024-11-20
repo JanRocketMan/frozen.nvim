@@ -24,12 +24,10 @@ vim.keymap.set('n', 'c', '"_c')
 vim.keymap.set('n', 'x', '"_x')
 -- Keep last yanked when pasting
 vim.keymap.set('v', 'p', '"_dP')
--- Remap line replace to line edit
-vim.keymap.set('n', 'R', 'S')
 
 -- Use fast navigation w flash
 vim.keymap.set({'n', 'x', 'o'}, 's', function() require('flash').jump() end, {desc = "Flash jump"})
-vim.keymap.set({'n', 'x', 'o'}, 'S', function() require('flash').treesitter() end, {desc = "Flash jump treesitter"})
+vim.keymap.set({'n', 'x', 'o'}, 'R', function() require('flash').treesitter() end, {desc = "Flash jump treesitter"})
 
 -- File manipulation hotkeys
 vim.keymap.set('n', '<leader>i', vim.cmd.write, { desc = 'Wr[i]te current file' })
