@@ -33,6 +33,11 @@ return {
       reset = 'rs',
     },}
   },
+  -- Set current task for better focus
+  {
+    'Hashino/doing.nvim',
+    config = true,
+  },
   -- Set default colorscheme
   {
     'tomasiser/vim-code-dark',
