@@ -60,8 +60,7 @@ vim.keymap.set('n', '<leader>/', function()
     previewer = false,
   })
 end, { desc = '[/] Fuzzily search in current buffer' })
-vim.api.nvim_set_keymap('n', ';', ':Telescope cmdline<CR>', { noremap = true, desc = "Open cmdline in telescope" })
-vim.api.nvim_set_keymap('n', ',', ';', { noremap = true, desc = "Go backwards (remap for ; key)" })
+vim.api.nvim_set_keymap('n', '<leader>;', ':Telescope cmdline<CR>', { noremap = true, desc = "Open cmdline in telescope" })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
