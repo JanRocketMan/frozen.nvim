@@ -69,15 +69,22 @@ vim.keymap.set('n', '<S-Left>', '<C-w><C-h>', { desc = 'Move focus to the left w
 vim.keymap.set('n', '<S-Right>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<S-Down>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<S-Up>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
--- Cycle through quickfix list items
-vim.keymap.set('n', ']e', '<Cmd>try | cnext | catch | cfirst | catch | endtry<CR>', { desc = "Goto next quickfix item"})
-vim.keymap.set('n', '[e', '<Cmd>try | cprevious | catch | clast | catch | endtry<CR>', {desc = "Goto prev quickfix item"})
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
-vim.keymap.set('n', '<leader>k', vim.diagnostic.setqflist, { desc = 'Open diagnostic [k]uickfix list' })
+vim.keymap.set('n', '[e', vim.diagnostic.goto_prev, { desc = 'Go to previous [e]rror message' })
+vim.keymap.set('n', ']e', vim.diagnostic.goto_next, { desc = 'Go to next [e]rror message' })
+vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Show [d]iagnostic error messages' })
+vim.keymap.set('n', '<leader>e', function()
+  vim.diagnostic.setloclist({ open = false }) -- don't open and focus
+  local window = vim.api.nvim_get_current_win()
+  local qf_winid = vim.fn.getloclist(window, { winid = 0 }).winid
+  if qf_winid > 0 then
+    vim.cmd('lclose')
+  else
+    vim.diagnostic.setloclist()
+  end
+  vim.api.nvim_set_current_win(window) -- restore focus to current window
+end, { desc = 'Open diagnostic [e]rror list' })
 
 -- Zettelkasten keymaps
 vim.keymap.set('n', '<leader>tn', function()

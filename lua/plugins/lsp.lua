@@ -91,7 +91,8 @@ return {
       })
 
       -- launch installed language server
-      require('lspconfig').pyright.setup{}
+      local capabilities = require('blink.cmp').get_lsp_capabilities()
+      require('lspconfig').pyright.setup{capabilities=capabilities}
       require('lspconfig').zls.setup{}
       require('lspconfig').clangd.setup{}
     end,

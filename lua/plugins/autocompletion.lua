@@ -1,36 +1,45 @@
 return {
   {
     'saghen/blink.cmp',
-    lazy = false, -- lazy loading handled internally
     -- optional: provides snippets for the snippet source
     dependencies = 'rafamadriz/friendly-snippets',
 
     -- use a release tag to download pre-built binaries
-    version = 'v0.*',
+    version = '*',
 
     ---@module 'blink.cmp'
-    ---@type blink.cmp.Config
+    ---@type blink.cmp.config
     opts = {
       keymap = { preset = 'super-tab' },
-      highlight = {
+      appearance = {
         -- sets the fallback highlight groups to nvim-cmp's highlight groups
         -- useful for when your theme doesn't support blink.cmp
         use_nvim_cmp_as_default = true,
+        -- set to 'mono' for 'nerd font mono' or 'normal' for 'nerd font'
+        -- adjusts spacing to ensure icons are aligned
+        nerd_font_variant = 'mono',
       },
-      -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-      -- adjusts spacing to ensure icons are aligned
-      nerd_font_variant = 'normal',
-
-      -- experimental signature help support
-      trigger = { signature_help = { enabled = true } },
-    }
+      sources = {
+        default = { 'lsp', 'path', 'snippets', 'buffer' },
+      },
+      signature = { enabled = true },
+      -- Fix preselect following blink documentation when keymap preset is 'super-tab'
+      completion = {
+        list = {
+          selection = {
+            preselect = function(ctx) return not require('blink.cmp').snippet_active({ direction = 1 }) end,
+            auto_insert = true
+          }
+        }
+      },
+    },
+    opts_extend = { "sources.default" }
   },
   {
     "olimorris/codecompanion.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
-      "nvim-telescope/telescope.nvim", -- Optional: For using slash commands
     },
     config = function()
       require("codecompanion").setup({
