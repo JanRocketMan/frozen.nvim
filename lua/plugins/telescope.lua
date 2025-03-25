@@ -20,8 +20,6 @@ return {
         end,
       },
       { 'nvim-telescope/telescope-ui-select.nvim' },
-      -- Run terminal commands in telescope
-      {'jonarrien/telescope-cmdline.nvim'},
       -- More convenient recent files display
       {"smartpde/telescope-recent-files"},
       -- Useful for getting pretty icons, but requires a Nerd Font.
@@ -39,10 +37,6 @@ return {
             include_current_file = false,
             only_cwd = true,
           },
-          -- Reduce height of history window in telescope cmdline
-          ['cmdline'] = {
-            picker = {layout_config = {height = 10}}
-          },
         },
         defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
           -- Exit telescope with single <Esc> since I don't need normal mode
@@ -55,7 +49,6 @@ return {
      -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
-      pcall(require('telescope').load_extension, 'cmdline')
       pcall(require('telescope').load_extension, 'recent_files')
 
     end,

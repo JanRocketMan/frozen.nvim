@@ -8,7 +8,11 @@ return {
   --  - ci'  - [C]hange [I]nside [']quote
   { 'echasnovski/mini.ai', opts = { n_lines = 500 } },
   -- Automatically add character pairs
-  { 'echasnovski/mini.pairs', version = '*', config = true },
+  {
+    'windwp/nvim-autopairs',
+    event = "InsertEnter",
+    config = true
+  },
   -- Add better surroundings control
   { 'echasnovski/mini.surround', version = '*',
     opts = {
@@ -67,50 +71,9 @@ return {
     },
     -- stylua: ignore
   },
-  -- Show spaces as dots in visual mode
-  {
-   'mcauley-penney/visual-whitespace.nvim',
-    opts = {nl_char = '', cr_char = ''},
-    config = true
-  },
   -- Show pending keybinds.
   {'folke/which-key.nvim', config = function() require('which-key').setup() end},
-  -- Create notes with obsidian
-  {
-    "epwalsh/obsidian.nvim",
-    version = "*",
-    lazy=true,
-    ft='markdown',
-    opts = {
-      workspaces = {
-        {
-          name = "main",
-          path = "~/zet",
-        }
-      },
-      new_notes_location="current_dir",
-      picker = {
-        mappings = {
-          new = "<C-o>",
-          insert_link = "<C-l>",
-        },
-      },
-      ui = {enable = true},
-      callbacks = {
-        enter_note = function()
-          vim.wo.conceallevel = 1
-        end,
-        leave_note = function()
-          vim.wo.conceallevel = 0
-        end,
-      },
-      disable_frontmatter = true,
-      note_path_func = function(spec)
-        local path = spec.dir / spec.title
-        return path:with_suffix(".md")
-      end,
-    },
-  },
+  -- Revert changes even without git
   {
     "jiaoshijie/undotree",
     dependencies = "nvim-lua/plenary.nvim",
@@ -119,6 +82,7 @@ return {
       { "<leader>u", "<cmd>lua require('undotree').toggle()<cr>" },
     },
   },
+  -- Navigate between class methods more conveniently
   {
   "bassamsdata/namu.nvim",
     config = function()
@@ -150,6 +114,7 @@ return {
       })
     end,
   },
+  -- Use jq in neovim to view json files conveniently
   {
     "yochem/jq-playground.nvim",
     opts = {
@@ -160,16 +125,5 @@ return {
        width = 0.99,
      }
     }
-  },
-  {
-    "geg2102/nvim-python-repl",
-    dependencies = "nvim-treesitter",
-    ft = {"python", "lua", "scala"}, 
-    config = function()
-        require("nvim-python-repl").setup({
-            execute_on_send = false,
-            vsplit = true,
-        })
-    end
   },
 }

@@ -61,7 +61,6 @@ vim.keymap.set('n', '<leader>/', function()
     previewer = false,
   })
 end, { desc = '[/] Fuzzily search in current buffer' })
-vim.api.nvim_set_keymap('n', '<leader>;', ':Telescope cmdline<CR>', { noremap = true, desc = "Open cmdline in telescope" })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
@@ -86,19 +85,6 @@ vim.keymap.set('n', '<leader>e', function()
   end
   vim.api.nvim_set_current_win(window) -- restore focus to current window
 end, { desc = 'Open diagnostic [e]rror list' })
-
--- Zettelkasten keymaps
-vim.keymap.set('n', '<leader>tn', function()
-  note_name = vim.fn.input 'Note name: '
-  if note_name ~= '' then
-    vim.cmd('ObsidianNew ' .. note_name)
-    vim.cmd.write()
-  end
-end, {desc = 'Create a new Obsidian note and save it'})
-vim.keymap.set('n', '<leader>tb', ':ObsidianBacklinks<CR>', {desc = 'Open backlinks of current note'})
-vim.keymap.set('v', '<leader>tl', ':ObsidianLink .md<CR>', {desc = 'Link current selection to existing note'})
-vim.keymap.set('v', '<leader>te', ':ObsidianExtractNote<CR>', {desc = 'Extract current selection into a new note'})
-vim.keymap.set('n', '<leader>to', ':ObsidianOpen<CR>', {desc = 'Open current note in Obsidian app'})
 
 -- Keymaps for git plugins
 vim.keymap.set('n', '<leader>g', function() require('neogit'):open() end, { desc = 'Open neo[g]it window'})
