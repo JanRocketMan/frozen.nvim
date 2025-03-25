@@ -43,6 +43,7 @@ vim.keymap.set('n', 'Q', function() require('mini.files').close() end, { desc = 
 vim.keymap.set('n', '<leader>wh', function()
   vim.fn.setreg('+', vim.fn.expand('%:p'))
 end, { desc = 'Copy absolute path of current file to buffer'})
+vim.keymap.set("n", "<leader>jq", vim.cmd.JqPlayground)
 
 -- Code folding is supported via treesitter. Simply type za to fold/unfold current region
 -- Toggle visual selection comments by typing gc
