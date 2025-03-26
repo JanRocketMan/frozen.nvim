@@ -61,11 +61,7 @@ return {
     opts = {
       jump = {autojump = true},
       modes = {
-        char = {
-          jump_labels = true,
-          multi_line = false,
-          jump = {autojump = true}, highlight = {backdrop = false}
-        }
+        char = {enabled = false}
       },
       highlight = {backdrop = false}
     },
