@@ -53,7 +53,7 @@ return {
             return require("codecompanion.adapters").extend("ollama", {
               schema = {
                 model = {
-                  default = "deepseek-r1:32b",
+                  default = "qwq:32b",
                 },
               },
             })
