@@ -91,17 +91,13 @@ vim.keymap.set('n', '<leader>g', function() require('neogit'):open() end, { desc
 vim.keymap.set('v', '<leader>hl', function() require("git-log").check_log() end, { desc = 'Show git log of current selection'})
 
 -- Basic debugging keymaps
-vim.keymap.set('n', '<F4>', function() require('dap').continue() end, { desc = 'Debug: Start/Continue' })
-vim.keymap.set('n', '<F5>', function() require('dap').step_into() end, { desc = 'Debug: Step Into' })
-vim.keymap.set('n', '<F6>', function() require('dap').step_over() end, { desc = 'Debug: Step Over' })
-vim.keymap.set('n', '<F11>', function() require('dap').step_out() end, { desc = 'Debug: Step Out' })
 vim.keymap.set('n', '<leader>b', function() require('dap').toggle_breakpoint() end, { desc = 'Debug: Toggle [B]reakpoint' })
-vim.keymap.set('n', '<leader>B', function()
-  require('dap').set_breakpoint(vim.fn.input 'Breakpoint condition: ')
-end, { desc = 'Debug: Set Conditional [B]reakpoint' })
-
--- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
-vim.keymap.set('n', '<F8>', function() require('dapui').toggle() end, { desc = 'Debug: See last session result.' })
+vim.keymap.set('n', '<F4>', function()
+  require('dap').toggle_breakpoint()
+  require("debugmaster").mode.toggle({nowait=true})
+  require('dap').continue()
+end, { desc = 'Start debugging' })
+vim.keymap.set('n', '<F5>', function() require('dap').continue() end, { desc = 'Debug: Continue' })
 
 -- Fix __repr__ attributes for pytorch Tensors to improve stack readability during debugging
 vim.keymap.set('n', '<leader>td', function()

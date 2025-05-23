@@ -1,17 +1,8 @@
 return {{
   -- NOTE: Yes, you can install new plugins here!
   'mfussenegger/nvim-dap',
-  -- NOTE: And you can specify dependencies as well
-  dependencies = {
-    -- Creates a beautiful debugger UI
-    'rcarriga/nvim-dap-ui',
-
-    -- Required dependency for nvim-dap-ui
-    'nvim-neotest/nvim-nio',
-  },
   config = function()
     local dap = require 'dap'
-    local dapui = require 'dapui'
 
     dap.adapters.python = function(cb, config)
       if config.request == 'attach' then
@@ -47,40 +38,13 @@ return {{
         end,
       },
     }
-
-    -- Dap UI setup
-    -- For more information, see |:help nvim-dap-ui|
-    dapui.setup {
-      controls = {enabled = false},
-      layouts = { {
-        elements = {{
-          id = "scopes",
-          size = 1.0
-        }},
-        position = "left",
-        size = 40
-      }, {
-        elements = {{
-          id = "repl",
-          size = 1.0
-        }},
-        position = "bottom",
-        size = 20
-      } },
-    }
-
-    dap.listeners.before.attach.dapui_config = function()
-      dapui.open()
-    end
-    dap.listeners.before.launch.dapui_config = function()
-      dapui.open()
-    end
-    dap.listeners.before.event_terminated.dapui_config = function()
-      dapui.close()
-    end
-    dap.listeners.before.event_exited.dapui_config = function()
-      dapui.close()
-    end
   end,
+},
+{
+    "miroshQa/debugmaster.nvim",
+    config = function()
+      local dm = require("debugmaster")
+      vim.keymap.set({ "n", "v" }, "<leader>m", dm.mode.toggle, { nowait = true })
+    end
 },
 }
