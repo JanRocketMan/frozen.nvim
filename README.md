@@ -16,9 +16,9 @@ Probably shouldn't be used by anyone.
 System utils: git, make, gcc, unzip
 
 Neovim and tools:
-- [nvim==0.10.0](https://github.com/neovim/neovim/releases/tag/v0.10.0)
-- [ripgrep==14.1.0](https://github.com/BurntSushi/ripgrep/releases/tag/14.1.0)
-- [fd==10.1.0](https://github.com/sharkdp/fd/releases/tag/v10.1.0)
+- `nvim==0.10.0`: [linux](https://github.com/neovim/neovim/releases/download/v0.10.0/nvim-linux64.tar.gz) and [macos-arm](https://github.com/neovim/neovim/releases/download/v0.10.0/nvim-macos-arm64.tar.gz)
+- `ripgrep==14.1.0`: [linux](https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/ripgrep-14.1.0-x86_64-unknown-linux-musl.tar.gz) and [macos-arm](https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/ripgrep-14.1.0-aarch64-apple-darwin.tar.gz)
+- `fd==10.1.0`: [linux](https://github.com/sharkdp/fd/releases/download/v10.1.0/fd-v10.1.0-x86_64-unknown-linux-musl.tar.gz) and [macos-arm](https://github.com/sharkdp/fd/releases/download/v10.1.0/fd-v10.1.0-aarch64-apple-darwin.tar.gz)
 
 A bunch of python libraries: 
 - `pyright` for autocompletion and static type checking
@@ -29,8 +29,10 @@ Note that support for every language should be handled manually since we dont us
 
 ## Installation
 
-Install dependencies: `pip install pyright ruff debugpy`
+1. Install dependencies: `pip install pyright ruff debugpy` (optionally install `uv` first: `curl -LsSf https://astral.sh/uv/install.sh | sh` and create new env: `uv venv .env -p 3.10 -v`)
 
-Delete previous configs (cache them if you need): `rm -rf ~/.cache/nvim ~/.config/nvim ~/.local/share/nvim ~/.local/state/nvim`
+2. Delete previous configs (cache them if needed): `rm -rf ~/.cache/nvim ~/.config/nvim ~/.local/share/nvim ~/.local/state/nvim`
 
-`git clone https://github.com/JanRocketMan/frozen.nvim.git ~/.config/nvim`
+3. Add & update sys path: `echo -e "\nexport PATH=~/nvim-linux64/bin:\$PATH\nexport PATH=~/ripgrep-14.1.0-x86_64-unknown-linux-musl:\$PATH\nexport PATH=~/fd-v10.1.0-x86_64-unknown-linux-musl:\$PATH" >> ~/.bashrc && source ~/.bashrc`
+
+4. Download actual config: `git clone https://github.com/JanRocketMan/frozen.nvim.git ~/.config/nvim` and run `nvim` to install all packages
