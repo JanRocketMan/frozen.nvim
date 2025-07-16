@@ -51,7 +51,9 @@ vim.keymap.set('n', '<leader>i', vim.cmd.write, { desc = 'Wr[i]te current file' 
 vim.keymap.set('n', '<leader>ti', function()
   vim.b.disable_autoformat = not vim.b.disable_autoformat
 end, { desc = 'Toggle autoformatting'})
+
 vim.keymap.set('n', '<leader>q', function() vim.cmd('q!') end, { desc = 'E[x]it current buffer without saving' })
+vim.keymap.set('n', '<leader>x', function() vim.cmd('tabclose') end, { desc = 'E[x]it current tab with multiple buffers' })
 vim.keymap.set('n', '<leader>o', function()
   require('mini.files').open(vim.api.nvim_buf_get_name(0), true)
   require('mini.files').reveal_cwd()
