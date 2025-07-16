@@ -122,6 +122,7 @@ if ! grep -q "alias dpython=" ~/.bashrc; then
     echo "          fi" >> ~/.bashrc
     echo "        done" >> ~/.bashrc
     echo "}" >> ~/.bashrc
+    echo "alias vim='nvim'" >> ~/.bashrc
     echo "alias ta='tmux a'" >> ~/.bashrc
     echo "alias tn='tmux new'" >> ~/.bashrc
     echo "alias dpython='python -m debugpy --wait-for-client --listen'" >> ~/.bashrc
@@ -146,11 +147,11 @@ echo "🎉 Installation complete!"
 echo ""
 echo "📝 Next steps:"
 echo "1. Restart your terminal or run: source ~/.bashrc"
-echo "2. Run 'nvim' to start Neovim and install all packages"
+echo "2. Run 'vim' to start Neovim and install all packages"
 echo "3. If dealing with python project, select or create some uv/pip env and install dependencies: upi pyright ruff debugpy"
 echo ""
 echo "🛠️ Available tools:"
-echo "  - nvim: ~/$NVIM_DIR/bin/nvim"
+echo "  - vim: ~/$NVIM_DIR/bin/nvim"
 echo "  - ripgrep: ~/$RIPGREP_DIR/rg"
 echo "  - fd: ~/$FD_DIR/fd"
 echo "  - uv: $(which uv 2>/dev/null || echo 'installed via install script')"
