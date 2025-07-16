@@ -3,16 +3,9 @@
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
 
--- Hide command line when its not used. I've read it could be buggy,
--- but haven't experienced this myself (yet). So beware.
+-- Hide command line & disable status bar
 vim.o.cmdheight = 0
--- Disable status bar. Please note this is very very subjective choice
--- Remove this line and add proper status line (e.g. mini.statusline)
--- if you need it.
 vim.opt.laststatus = 0
-
--- Don't show the mode
-vim.opt.showmode = false
 
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.

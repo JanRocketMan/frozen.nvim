@@ -8,6 +8,16 @@
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- Toggle line numbers (they are disabled by default)
 vim.keymap.set('n', '<leader>l', '<cmd>let &nu = !&nu<CR>', { desc = 'Toggle [l]ine numbers' })
+-- Toggle LSP/Format messages and git signs
+vim.keymap.set('n', '<leader>to', function()
+  if vim.diagnostic.is_disabled() then
+    vim.diagnostic.enable()
+    vim.opt.signcolumn = 'yes'
+  else
+    vim.diagnostic.disable()
+    vim.opt.signcolumn = 'no'
+  end
+end, {desc = "[To]ggle lsp messages and signs"})
 -- A set of awesome mappings inspired by the @ThePrimeagen config
 vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Move [U]p with centering' })
 vim.keymap.set('n', '<PageUp>', '<C-u>zz', { desc = 'Move [U]p with centering' })

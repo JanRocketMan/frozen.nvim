@@ -23,10 +23,14 @@ return {
     end,
   },
   -- Rainbow parentheses for convenicency
-  'HiPhish/rainbow-delimiters.nvim',
+  {
+    'HiPhish/rainbow-delimiters.nvim',
+    -- Remove weird error when lazy installs it, see https://github.com/HiPhish/rainbow-delimiters.nvim/issues/169
+    submodules = false,
+  },
   -- Add motions to jump to current function definition
   {
-    'nvim-treesitter/nvim-treesitter-textobjects', 
+    'nvim-treesitter/nvim-treesitter-textobjects',
     config = function()
       require'nvim-treesitter.configs'.setup{
         textobjects = {
