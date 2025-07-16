@@ -31,9 +31,15 @@ Note that support for every language should be handled manually since we dont us
 
 1. Install dependencies: `pip install pyright ruff debugpy` (optionally install `uv` first: `curl -LsSf https://astral.sh/uv/install.sh | sh` and create new env: `uv venv .env -p 3.10 -v`)
 
-2. Delete previous configs (cache them if needed): `rm -rf ~/.cache/nvim ~/.config/nvim ~/.local/share/nvim ~/.local/state/nvim`
+2. Delete previous configs (cache them if needed): 
+```
+rm -rf ~/.cache/nvim ~/.config/nvim ~/.local/share/nvim ~/.local/state/nvim
+```
 
-3. Add & update sys path: `echo -e "\nexport PATH=~/nvim-linux64/bin:\$PATH\nexport PATH=~/ripgrep-14.1.0-x86_64-unknown-linux-musl:\$PATH\nexport PATH=~/fd-v10.1.0-x86_64-unknown-linux-musl:\$PATH" >> ~/.bashrc && source ~/.bashrc`
+3. Add & update sys path: 
+```
+echo -e "\nexport PATH=~/nvim-linux64/bin:\$PATH\nexport PATH=~/ripgrep-14.1.0-x86_64-unknown-linux-musl:\$PATH\nexport PATH=~/fd-v10.1.0-x86_64-unknown-linux-musl:\$PATH" >> ~/.bashrc && source ~/.bashrc
+```
 
 4. Download actual config: `git clone https://github.com/JanRocketMan/frozen.nvim.git ~/.config/nvim` and run `nvim` to install all packages
 
@@ -41,6 +47,8 @@ Note that support for every language should be handled manually since we dont us
 
 You can skip all of the above steps by fetching & executing a single installation script as follows:
 
-`curl -LsSf https://raw.githubusercontent.com/JanRocketMan/frozen.nvim/refs/heads/main/autoinstall.sh | sh`
+```
+curl -LsSf https://raw.githubusercontent.com/JanRocketMan/frozen.nvim/refs/heads/main/autoinstall.sh | sh
+```
 
 Please note this one is going to add a bunch of aliases in your `~/.bashrc` file as well. Check its contents before proceeding
