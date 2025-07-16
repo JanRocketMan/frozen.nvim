@@ -29,7 +29,7 @@ else
     exit 1
 fi
 
-echo "��️ Detected platform: $PLATFORM"
+echo "✅ Detected platform: $PLATFORM"
 
 # Check for required system utilities
 echo "🔍 Checking system requirements..."
@@ -43,7 +43,7 @@ echo "✅ All system requirements met"
 
 # Install uv if not present
 if ! command -v uv &> /dev/null; then
-    echo "�� Installing uv..."
+    echo "📥 Installing uv..."
     curl -LsSf https://astral.sh/uv/install.sh | sh
     echo "✅ uv installed"
     # Source the shell profile to make uv available in current session
@@ -58,7 +58,7 @@ fi
 
 # Download and extract Neovim (only if not already present)
 if [[ ! -d "$HOME/$NVIM_DIR" ]]; then
-    echo "�� Downloading Neovim..."
+    echo "📥 Downloading Neovim..."
     cd ~
     curl -L -o nvim.tar.gz "$NVIM_URL"
     tar -xzf nvim.tar.gz
@@ -98,7 +98,7 @@ rm -rf ~/.cache/nvim ~/.config/nvim ~/.local/share/nvim ~/.local/state/nvim
 echo "✅ Previous configurations cleaned"
 
 # Add tools to PATH and aliases in bashrc
-echo "�� Configuring bashrc..."
+echo "🔄 Configuring bashrc..."
 if ! grep -q "export PATH=~/$NVIM_DIR/bin:\$PATH" ~/.bashrc; then
     echo "" >> ~/.bashrc
     echo "# Neovim configuration tools" >> ~/.bashrc
@@ -156,7 +156,7 @@ echo "  - ripgrep: ~/$RIPGREP_DIR/rg"
 echo "  - fd: ~/$FD_DIR/fd"
 echo "  - uv: $(which uv 2>/dev/null || echo 'installed via install script')"
 echo ""
-echo "�� Available aliases:"
+echo "🛠️ Available aliases:"
 echo "  - ac: activate local Python virtual environment"
 echo "  - ta: tmux attach"
 echo "  - tn: tmux new session"
