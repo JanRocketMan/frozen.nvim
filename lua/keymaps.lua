@@ -4,6 +4,13 @@
 -- WARNING!!! It's recommended to keep ALL your keymaps here, in a single file
 -- Otherwise it may be tedious to keep track of them
 
+-- Fix occassional issues with text copying using Ghostty OSC52 escape sequence
+vim.keymap.set({'n', 'v'}, '<leader>y', function()
+  local text = vim.fn.getreg('"')
+  local osc52 = string.format('\027]52;c;%s\007', vim.fn.system('base64', text):gsub('\n', ''))
+  io.write(osc52)
+end, { desc = 'Copy to system clipboard via OSC52' })
+
 -- Clear higlhight on search by pressing <Esc> in normal mode
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- Toggle line numbers (they are disabled by default)
