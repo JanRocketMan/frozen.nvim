@@ -22,7 +22,7 @@ curl -LsSf https://raw.githubusercontent.com/JanRocketMan/frozen.nvim/refs/heads
 Additionally there is a minimal version that doesn't install Lazy plugin manager or plugins (using core neovim only):
 
 ```bash
-curl -LsSf https://raw.githubusercontent.com/JanRocketMan/frozen.nvim/refs/heads/main/autoinstall.sh | sh min
+curl -LsSf https://raw.githubusercontent.com/JanRocketMan/frozen.nvim/refs/heads/main/autoinstall.sh | bash -s min
 ```
 
 *Warning!* Both scripts above are going to remove all existing files you have in `~/.cache/nvim ~/.config/nvim ~/.local/share/nvim ~/.local/state/nvim`! There will also add a couple of aliases in your `~/.bashrc` file. Please check the script before running it
