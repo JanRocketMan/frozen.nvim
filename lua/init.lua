@@ -148,6 +148,17 @@ end, {desc = "[To]ggle diagnostic messages and signs"})
 vim.cmd('syntax off | highlight Normal guibg=#2a2a2a guifg=#b8a583')
 local minimal_group = vim.api.nvim_create_augroup("MinimalMode", { clear = true })
 vim.api.nvim_create_autocmd("BufEnter", {group = minimal_group, callback = function() vim.treesitter.stop() end})
+vim.api.nvim_create_autocmd("VimEnter", {
+  group = minimal_group,
+  callback = function()
+    if vim.api.nvim_buf_get_offset(0, 0) <= 0 then
+      local handle = io.open(vim.api.nvim_buf_get_name(0))
+      if handle == nil then
+        vim.cmd('browse oldfiles')
+      end
+    end
+  end,
+})
 vim.opt.signcolumn = 'no'
 
 -- vim: ts=2 sts=2 sw=2 et
