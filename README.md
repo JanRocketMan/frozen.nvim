@@ -20,7 +20,7 @@ Neovim and tools:
 - `ripgrep==14.1.0`: [linux](https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/ripgrep-14.1.0-x86_64-unknown-linux-musl.tar.gz) and [macos-arm](https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/ripgrep-14.1.0-aarch64-apple-darwin.tar.gz)
 - `fd==10.1.0`: [linux](https://github.com/sharkdp/fd/releases/download/v10.1.0/fd-v10.1.0-x86_64-unknown-linux-musl.tar.gz) and [macos-arm](https://github.com/sharkdp/fd/releases/download/v10.1.0/fd-v10.1.0-aarch64-apple-darwin.tar.gz)
 
-A bunch of python libraries: 
+A bunch of python libraries:
 - `pyright` for autocompletion and static type checking
 - `ruff` for linting and autoformat
 - `debugpy` for debugging
@@ -29,26 +29,27 @@ Note that support for every language should be handled manually since we dont us
 
 ## Installation
 
-1. Install dependencies: `pip install pyright ruff debugpy` (optionally install `uv` first: `curl -LsSf https://astral.sh/uv/install.sh | sh` and create new env: `uv venv .env -p 3.10 -v`)
-
-2. Delete previous configs (cache them if needed): 
-```
+1. Delete previous configs (cache them if needed):
+```bash
 rm -rf ~/.cache/nvim ~/.config/nvim ~/.local/share/nvim ~/.local/state/nvim
 ```
 
-3. Add & update sys path: 
-```
-echo -e "\nexport PATH=~/nvim-linux64/bin:\$PATH\nexport PATH=~/ripgrep-14.1.0-x86_64-unknown-linux-musl:\$PATH\nexport PATH=~/fd-v10.1.0-x86_64-unknown-linux-musl:\$PATH" >> ~/.bashrc && source ~/.bashrc
+2. Download nvim config:
+
+```bash
+git clone https://github.com/JanRocketMan/frozen.nvim.git ~/.config/nvim
 ```
 
-4. Download actual config: `git clone https://github.com/JanRocketMan/frozen.nvim.git ~/.config/nvim` and run `nvim` to install all packages
+3. Make sure you have `nvim`, `fd` and `rg` in your system path. Then run `nvim` to install all packages & exit it to apply all changes
+
+4. To use this config for python projects make sure to install necessary tools via `pip install pyright ruff debugpy`. Use python/uv environment to avoid polluting your global python. For you can install uv with `curl -LsSf https://astral.sh/uv/install.sh | sh`
 
 ## Installation script
 
-You can skip all of the above steps by fetching & executing a single installation script as follows:
+On clean systems that doesn't have any neovim/fd/ripgrep tools installed you can fetch and run the following script:
 
-```
+```bash
 curl -LsSf https://raw.githubusercontent.com/JanRocketMan/frozen.nvim/refs/heads/main/autoinstall.sh | sh
 ```
 
-Please note this one is going to add a bunch of aliases in your `~/.bashrc` file as well. Check its contents before proceeding
+Please note this one is going to add a bunch of aliases in your `~/.bashrc` file as well. Check the script for details
