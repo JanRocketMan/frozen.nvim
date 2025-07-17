@@ -5,6 +5,13 @@
 
 set -e  # Exit on any error
 
+# Check for min option
+MIN_MODE=false
+if [[ "$1" == "min" ]]; then
+    MIN_MODE=true
+    echo "⚠️ Running in minimal mode - will download only ilua/init.lua with no plugins"
+fi
+
 echo "🚀 Starting Neovim configuration installation..."
 
 # Detect platform
@@ -98,7 +105,7 @@ rm -rf ~/.cache/nvim ~/.config/nvim ~/.local/share/nvim ~/.local/state/nvim
 echo "✅ Previous configurations cleaned"
 
 # Add tools to PATH and aliases in bashrc
-echo "🔄 Configuring bashrc..."
+echo "⚙️ Configuring bashrc..."
 if ! grep -q "export PATH=~/$NVIM_DIR/bin:\$PATH" ~/.bashrc; then
     echo "" >> ~/.bashrc
     echo "# Neovim configuration tools" >> ~/.bashrc
@@ -122,7 +129,7 @@ if ! grep -q "alias dpython=" ~/.bashrc; then
     echo "          fi" >> ~/.bashrc
     echo "        done" >> ~/.bashrc
     echo "}" >> ~/.bashrc
-    echo "alias vim='nvim'" >> ~/.bashrc
+    echo "alias vim='nvim -u ~/.config/nvim/lua/init.lua'" >> ~/.bashrc
     echo "alias ta='tmux a'" >> ~/.bashrc
     echo "alias tn='tmux new'" >> ~/.bashrc
     echo "alias dpython='python -m debugpy --wait-for-client --listen'" >> ~/.bashrc
@@ -137,21 +144,28 @@ fi
 echo "🔄 Updating current session PATH and aliases..."
 source ~/.bashrc
 
-# Clone Neovim configuration
-echo "📦 Cloning frozen.nvim configuration..."
-git clone https://github.com/JanRocketMan/frozen.nvim.git ~/.config/nvim
-echo "✅ Configuration cloned"
+# Setup Neovim configuration based on mode
+if [[ "$MIN_MODE" == "true" ]]; then
+    echo "📦 Cloning up minimal frozen.nvim configuration..."
+    mkdir -p ~/.config/nvim
+    curl -L -o ~/.config/nvim/init.lua "https://raw.githubusercontent.com/JanRocketMan/frozen.nvim/refs/heads/main/lua/init.lua"
+    echo "✅ Minimal configuration downloaded to ~/.config/nvim/init.lua"
+else
+    echo "📦 Cloning up full frozen.nvim configuration..."
+    git clone https://github.com/JanRocketMan/frozen.nvim.git ~/.config/nvim
+    echo "✅ Full configuration cloned"
+fi
 
 echo ""
 echo "🎉 Installation complete!"
 echo ""
 echo "📝 Next steps:"
 echo "1. Restart your terminal or run: source ~/.bashrc"
-echo "2. Run 'vim' to start Neovim and install all packages"
+echo "2. Run 'nvim' to start Neovim and install all packages"
 echo "3. If dealing with python project, select or create some uv/pip env and install dependencies: upi pyright ruff debugpy"
 echo ""
 echo "🛠️ Available tools:"
-echo "  - vim: ~/$NVIM_DIR/bin/nvim"
+echo "  - nvim: ~/$NVIM_DIR/bin/nvim"
 echo "  - ripgrep: ~/$RIPGREP_DIR/rg"
 echo "  - fd: ~/$FD_DIR/fd"
 echo "  - uv: $(which uv 2>/dev/null || echo 'installed via install script')"
@@ -162,6 +176,13 @@ echo "  - ta: tmux attach"
 echo "  - tn: tmux new session"
 echo "  - dpython: Python with debugpy for debugging"
 echo "  - upi: uv pip install"
+echo "  - vim: run nvim in minimal mode (no plugins, no treesitter) - suitable to large files"
+echo ""
+if [[ "$MIN_MODE" == "true" ]]; then
+    echo "📄 Configuration mode: Minimal (init.lua only with no plugins)"
+else
+    echo "📄 Configuration mode: Full (complete frozen.nvim repository)"
+fi
 echo ""
 echo "⚠️  Note: This configuration is optimized for Python development."
 echo "   Support for other languages may require manual configuration."

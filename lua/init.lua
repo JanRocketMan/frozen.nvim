@@ -1,0 +1,161 @@
+-- Configuration for minimal version of frozen.nvim that doesn't use lazy or any plugins
+-- 1. [[ Setting options ]]
+
+-- Set leader keys, enable nerd font, disable highlight of current line
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+vim.g.have_nerd_font = true
+vim.o.cursorline = false
+
+-- Enable mouse, hide status and minimize cmd bar, hide any bar stats
+vim.opt.mouse = 'a'
+vim.o.cmdheight = 1
+vim.o.ruler = false
+vim.o.showcmd = false
+vim.opt.showmode = false
+vim.o.laststatus = 0
+
+-- Support indents in multi-line strings, keep the undo history for buffer with file if we close it
+vim.opt.breakindent = true
+vim.o.undofile = true
+
+-- Use OS clipboard and fix pasting errors when copying over ssh/tmux sessions. See https://github.com/neovim/neovim/discussions/28010#discussioncomment-9877494
+vim.o.clipboard = 'unnamedplus'
+local osc52 = require('vim.ui.clipboard.osc52')
+local function paste()
+  return {
+    vim.fn.split(vim.fn.getreg(""), "\n"),
+    vim.fn.getregtype(""),
+  }
+end
+vim.g.clipboard = {
+   name = 'OSC 52',
+   copy = {
+     ['+'] = osc52.copy('+'),
+     ['*'] = osc52.copy('*'),
+   },
+   paste = {
+     ['+'] = paste,
+     ['*'] = paste,
+   },
+}
+
+-- Improve search, reduce update time
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.updatetime = 250
+
+-- Configure how new window splits should be opened
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+
+-- Improve symbols repr
+vim.opt.list = true
+vim.opt.expandtab = true
+vim.opt.fillchars = { eob = ' ' }
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.shiftwidth = 4
+vim.opt.softtabstop = -1
+
+-- Remove startup message, enable live substitutions, highlight on yank
+vim.opt.shortmess:append 'sI'
+vim.opt.inccommand = 'split'
+vim.opt.scrolloff = 10
+vim.api.nvim_create_autocmd('TextYankPost', {
+  desc = 'Highlight when yanking (copying) text',
+  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+})
+
+-- 2. [[ Basic Keymaps ]]
+
+-- Disable copy when we delete/change symbols from normal mode, keep last yanked when pasting
+vim.keymap.set('n', 'd', '"_d')
+vim.keymap.set('n', 'c', '"_c')
+vim.keymap.set('n', 'x', '"_x')
+vim.keymap.set('v', 'p', '"_dP')
+
+-- Clear cmd messages and highlight on Esc
+vim.keymap.set('n', '<Esc>', ':nohlsearch<CR>:echo ""<CR>')
+
+-- Add nice half-page jumps inspired by the @ThePrimeagen config
+vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Move [U]p with centering' })
+vim.keymap.set('n', '<PageUp>', '<C-u>zz', { desc = 'Move [U]p with centering' })
+vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Move [D]own with centering' })
+vim.keymap.set('n', '<PageDown>', '<C-d>zz', { desc = 'Move [D]own with centering' })
+
+-- Improve terminal/window navigation
+vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+vim.keymap.set('n', '<S-Left>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+vim.keymap.set('n', '<S-Right>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+vim.keymap.set('n', '<S-Down>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+vim.keymap.set('n', '<S-Up>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+
+-- Jump between error messages if opened in quickfix list
+vim.keymap.set('n', '[e', vim.diagnostic.goto_prev, { desc = 'Go to previous [e]rror message' })
+vim.keymap.set('n', ']e', vim.diagnostic.goto_next, { desc = 'Go to next [e]rror message' })
+
+-- Save file wo messages, close buffer/window/tab
+vim.keymap.set('n', '<leader>i', ':w<CR>:echo ""<CR>', { desc = 'Wr[i]te current file' })
+vim.keymap.set('n', '<leader>d', ':bd<CR>:echo ""<CR>', { desc = '[D]elete current buffer' })
+vim.keymap.set('n', '<leader>q', ':q!<CR>', { desc = '[Q]uit current window' })
+vim.keymap.set('n', '<leader>x', ':tabclose<CR>', { desc = 'E[x]it current tab' })
+
+-- Replace in current buffer
+vim.keymap.set({'n', 'x', 'o'}, '<leader>r', '"hy:%s/<C-r>h//g<left><left>', { desc = '[R]eplace all occurences of current selection in current buffer' })
+
+-- Buffer navigation
+vim.keymap.set('n', '<leader>n', ':bn<CR>:echo ""<CR>')
+vim.keymap.set('n', '<leader>p', ':bp<CR>:echo ""<CR>')
+
+-- Load current file path to clipboard, execute terminal command with scratch buffer
+vim.keymap.set('n', '<leader>y', "<cmd>let @+ = expand('%:p')<CR>", { desc = 'Cop[y] to clipboard current path' })
+vim.keymap.set('n', '<leader>c', function() vim.cmd('nos ene | setl bt=nofile bh=wipe') vim.cmd('r !' .. vim.fn.input('')) vim.cmd('1d') end, { desc = 'Execute terminal [c]ommand and drop result to scratch buffer' })
+
+-- Toggle diagnostic messages in current buffer in quickfix list
+vim.keymap.set('n', '<leader>e', function()
+  vim.diagnostic.setloclist({ open = false }) -- don't open and focus
+  local window = vim.api.nvim_get_current_win()
+  local qf_winid = vim.fn.getloclist(window, { winid = 0 }).winid
+  if qf_winid > 0 then
+    vim.cmd('lclose')
+  else
+    vim.diagnostic.setloclist()
+  end
+  vim.api.nvim_set_current_win(window) -- restore focus to current window
+end, { desc = 'Toggle diagnostic [e]rror list' })
+
+-- Toggle autoformatting
+vim.keymap.set('n', '<leader>ti', ':lua vim.b.disable_autoformat = not vim.b.disable_autoformat<CR>', { desc = 'Toggle autoformatting'})
+
+-- Hide treesitter colors and use simple colorscheme when needed
+vim.keymap.set('n', '<leader>tz', function() vim.cmd('syntax off | highlight Normal guibg=#2a2a2a guifg=#b8a583') vim.treesitter.stop() end, { desc = 'Stop treesitter and use simple two-color syntax' })
+
+-- Toggle diagnostic messages and signcolumn
+vim.keymap.set('n', '<leader>to', function()
+  if vim.diagnostic.is_disabled() then
+    vim.diagnostic.enable()
+    vim.opt.signcolumn = 'yes'
+  else
+    vim.diagnostic.disable()
+    vim.opt.signcolumn = 'no'
+  end
+end, {desc = "[To]ggle diagnostic messages and signs"})
+
+-- Check if running in minimal mode by checking the current script path
+local function is_minimal_mode()
+    local info = debug.getinfo(1, 'S')
+    local current_file = info.source:sub(2) -- Remove the '@' prefix
+    return current_file:match('/lua/init%.lua$') ~= nil
+end
+
+-- Apply minimal mode settings if detected
+if is_minimal_mode() then
+    vim.cmd('syntax off | highlight Normal guibg=#2a2a2a guifg=#b8a583')
+    vim.treesitter.stop()
+    vim.opt.signcolumn = 'yes'
+end
+
+-- vim: ts=2 sts=2 sw=2 et

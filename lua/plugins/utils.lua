@@ -13,21 +13,6 @@ return {
     event = "InsertEnter",
     config = true
   },
-  -- Add better surroundings control
-  { 'echasnovski/mini.surround', version = '*',
-    opts = {
-      mappings = {
-        add = 'ga', -- Add surrounding in Normal and Visual modes
-        delete = 'gx', -- Delete surrounding
-        replace = 'gc', -- Replace surrounding
-        -- Disable rest of keymaps
-        find = '',
-        find_left = '',
-        highlight = '',
-        update_n_lines = '',
-      }
-    }
-  },
   -- File explorer
   { 'echasnovski/mini.files', opts = {
     mappings = {
@@ -36,11 +21,6 @@ return {
       go_out_plus = '<BS>',
       reset = 'rs',
     },}
-  },
-  -- Set current task for better focus
-  {
-    'Hashino/doing.nvim',
-    config = true,
   },
   -- Set default colorscheme
   {
@@ -109,17 +89,5 @@ return {
         silent = true,
       })
     end,
-  },
-  -- Use jq in neovim to view json files conveniently
-  {
-    "yochem/jq-playground.nvim",
-    opts = {
-     output_window = {
-       width = 0.99,
-     },
-     query_window = {
-       width = 0.99,
-     }
-    }
   },
 }

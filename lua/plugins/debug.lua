@@ -44,7 +44,7 @@ return {{
     "miroshQa/debugmaster.nvim",
     config = function()
       local dm = require("debugmaster")
-      vim.keymap.set({ "n", "v" }, "<leader>m", dm.mode.toggle, { nowait = true })
+      vim.keymap.set({ "n", "v" }, "<leader>m", dm.mode.toggle, { nowait = true, desc = 'Enter debug [m]ode' })
     end
 },
 }

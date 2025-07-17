@@ -11,6 +11,22 @@ Also 'zen' indicates that it starts in zen mode by default (no statusline, no li
 
 Probably shouldn't be used by anyone.
 
+## Installation
+
+We provide a single installation script that installs both neovim, fd and ripgrep and configures neovim:
+
+```bash
+curl -LsSf https://raw.githubusercontent.com/JanRocketMan/frozen.nvim/refs/heads/main/autoinstall.sh | sh
+```
+
+Additionally there is a minimal version that doesn't install Lazy plugin manager or plugins (using core neovim only):
+
+```bash
+curl -LsSf https://raw.githubusercontent.com/JanRocketMan/frozen.nvim/refs/heads/main/autoinstall.sh | sh min
+```
+
+*Warning!* Both scripts above are going to remove all existing files you have in `~/.cache/nvim ~/.config/nvim ~/.local/share/nvim ~/.local/state/nvim`! There will also add a couple of aliases in your `~/.bashrc` file. Please check the script before running it
+
 ## Requirements
 
 System utils: git, make, gcc, unzip
@@ -27,7 +43,7 @@ A bunch of python libraries:
 
 Note that support for every language should be handled manually since we dont use Mason. For python simply installing for libs above works ok, but beware that I don't know anything about other languages. This config may be unusable for them.
 
-## Installation
+## Manual installation
 
 1. Delete previous configs (cache them if needed):
 ```bash
@@ -47,12 +63,3 @@ git clone https://github.com/JanRocketMan/frozen.nvim.git ~/.config/nvim
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-## Installation script
-
-On clean systems that doesn't have any neovim/fd/ripgrep tools installed you can fetch and run the following script:
-
-```bash
-curl -LsSf https://raw.githubusercontent.com/JanRocketMan/frozen.nvim/refs/heads/main/autoinstall.sh | sh
-```
-
-Please note this one is going to add a bunch of aliases in your `~/.bashrc` file as well. Check the script for details
