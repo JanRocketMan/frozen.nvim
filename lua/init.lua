@@ -144,18 +144,10 @@ vim.keymap.set('n', '<leader>to', function()
   end
 end, {desc = "[To]ggle diagnostic messages and signs"})
 
--- Check if running in minimal mode by checking the current script path
-local function is_minimal_mode()
-    local info = debug.getinfo(1, 'S')
-    local current_file = info.source:sub(2) -- Remove the '@' prefix
-    return current_file:match('/lua/init%.lua$') ~= nil
-end
-
--- Apply minimal mode settings if detected
-if is_minimal_mode() then
-    vim.cmd('syntax off | highlight Normal guibg=#2a2a2a guifg=#b8a583')
-    vim.treesitter.stop()
-    vim.opt.signcolumn = 'yes'
-end
+-- Apply minimal mode settings
+vim.cmd('syntax off | highlight Normal guibg=#2a2a2a guifg=#b8a583')
+local minimal_group = vim.api.nvim_create_augroup("MinimalMode", { clear = true })
+vim.api.nvim_create_autocmd("BufEnter", {group = minimal_group, callback = function() vim.treesitter.stop() end})
+vim.opt.signcolumn = 'no'
 
 -- vim: ts=2 sts=2 sw=2 et
