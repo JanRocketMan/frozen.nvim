@@ -1,4 +1,5 @@
 -- Configuration for minimal version of frozen.nvim that doesn't use lazy or any plugins
+-- You can use it as a drop-in replacement for large files with `nvim -u`
 -- 1. [[ Setting options ]]
 
 -- Set leader keys, enable nerd font, disable highlight of current line
@@ -19,7 +20,7 @@ vim.o.laststatus = 0
 vim.opt.breakindent = true
 vim.o.undofile = true
 
--- Use OS clipboard and fix pasting errors when copying over ssh/tmux sessions. See https://github.com/neovim/neovim/discussions/28010#discussioncomment-9877494
+-- Use OS clipboard and fix pasting errors when copying over ssh/tmux sessions. See https://github.com/neovim/neovim/discussions/28010#discussioncomment-987749
 vim.o.clipboard = 'unnamedplus'
 local osc52 = require('vim.ui.clipboard.osc52')
 local function paste()
@@ -28,17 +29,20 @@ local function paste()
     vim.fn.getregtype(""),
   }
 end
-vim.g.clipboard = {
-   name = 'OSC 52',
-   copy = {
-     ['+'] = osc52.copy('+'),
-     ['*'] = osc52.copy('*'),
-   },
-   paste = {
-     ['+'] = paste,
-     ['*'] = paste,
-   },
-}
+if (os.getenv('SSH_TTY') ~= nil)
+then
+  vim.g.clipboard = {
+     name = 'OSC 52',
+     copy = {
+       ['+'] = osc52.copy('+'),
+       ['*'] = osc52.copy('*'),
+     },
+     paste = {
+       ['+'] = paste,
+       ['*'] = paste,
+     },
+  }
+end
 
 -- Improve search, reduce update time
 vim.opt.ignorecase = true
@@ -66,6 +70,20 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
     vim.highlight.on_yank()
+  end,
+})
+
+-- Show recent files within current dir when we open neovim without any files
+-- Note this requires us to set `recent_files_picker` function which we do below
+vim.api.nvim_create_autocmd("VimEnter", {
+  group = minimal_group,
+  callback = function()
+    if vim.api.nvim_buf_get_offset(0, 0) <= 0 then
+      local handle = io.open(vim.api.nvim_buf_get_name(0))
+      if handle == nil then
+        recent_files_picker()
+      end
+    end
   end,
 })
 
@@ -147,18 +165,11 @@ end, {desc = "[To]ggle diagnostic messages and signs"})
 -- Apply minimal mode settings
 vim.cmd('syntax off | highlight Normal guibg=#2a2a2a guifg=#b8a583')
 local minimal_group = vim.api.nvim_create_augroup("MinimalMode", { clear = true })
+function recent_files_picker()
+  vim.cmd('browse oldfiles')
+end
 vim.api.nvim_create_autocmd("BufEnter", {group = minimal_group, callback = function() vim.treesitter.stop() end})
-vim.api.nvim_create_autocmd("VimEnter", {
-  group = minimal_group,
-  callback = function()
-    if vim.api.nvim_buf_get_offset(0, 0) <= 0 then
-      local handle = io.open(vim.api.nvim_buf_get_name(0))
-      if handle == nil then
-        vim.cmd('browse oldfiles')
-      end
-    end
-  end,
-})
+
 vim.opt.signcolumn = 'no'
 
 -- vim: ts=2 sts=2 sw=2 et
