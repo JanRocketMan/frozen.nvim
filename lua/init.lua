@@ -127,11 +127,11 @@ vim.keymap.set('n', '<leader>x', ':tabclose<CR>', { desc = 'E[x]it current tab' 
 vim.keymap.set({'n', 'x', 'o'}, '<leader>r', '"hy:%s/<C-r>h//g<left><left>', { desc = '[R]eplace all occurences of current selection in current buffer' })
 
 -- Buffer navigation
-vim.keymap.set('n', '<leader>n', ':bn<CR>:echo ""<CR>')
-vim.keymap.set('n', '<leader>p', ':bp<CR>:echo ""<CR>')
+vim.keymap.set('n', '<leader>n', ':bn<CR>:echo ""<CR>', { desc = 'Goto [n]ext buffer' })
+vim.keymap.set('n', '<leader>p', ':bp<CR>:echo ""<CR>', { desc = 'Goto [p]revious buffer' })
 
 -- Load current file path to clipboard, execute terminal command with scratch buffer
-vim.keymap.set('n', '<leader>y', "<cmd>let @+ = expand('%:p')<CR>", { desc = 'Cop[y] to clipboard current path' })
+vim.keymap.set('n', '<leader>y', function() vim.fn.setreg('+', vim.fn.expand('%:p')) vim.fn.setreg('"', vim.fn.expand('%:p')) end, { desc = 'Cop[y] to clipboard current path' })
 vim.keymap.set('n', '<leader>c', function() vim.cmd('nos ene | setl bt=nofile bh=wipe') vim.cmd('r !' .. vim.fn.input('')) vim.cmd('1d') end, { desc = 'Execute terminal [c]ommand and drop result to scratch buffer' })
 
 -- Toggle diagnostic messages in current buffer in quickfix list
