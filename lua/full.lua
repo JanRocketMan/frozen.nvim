@@ -1,9 +1,8 @@
--- 3. [[Change setting for full mode]]
+-- 3. [[Apply full mode settings]]
 
 vim.cmd('syntax on')
 vim.api.nvim_clear_autocmds({ group = "MinimalMode" })
 vim.opt.signcolumn = 'yes'
-
 function recent_files_picker()
   require('telescope').extensions.recent_files.pick()
 end

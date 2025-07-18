@@ -55,9 +55,11 @@ vim.opt.splitbelow = true
 
 -- Improve symbols repr
 vim.opt.list = true
-vim.opt.expandtab = true
 vim.opt.fillchars = { eob = ' ' }
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+
+-- Replace tabs with four spaces when you write them in insert mode or for indentations
+vim.opt.expandtab = true
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = -1
 
@@ -148,9 +150,6 @@ end, { desc = 'Toggle diagnostic [e]rror list' })
 -- Toggle autoformatting
 vim.keymap.set('n', '<leader>ti', ':lua vim.b.disable_autoformat = not vim.b.disable_autoformat<CR>', { desc = 'Toggle autoformatting'})
 
--- Hide treesitter colors and use simple colorscheme when needed
-vim.keymap.set('n', '<leader>tz', function() vim.cmd('syntax off | highlight Normal guibg=#2a2a2a guifg=#b8a583') vim.treesitter.stop() end, { desc = 'Stop treesitter and use simple two-color syntax' })
-
 -- Toggle diagnostic messages and signcolumn
 vim.keymap.set('n', '<leader>to', function()
   if vim.diagnostic.is_disabled() then
@@ -169,7 +168,5 @@ function recent_files_picker()
   vim.cmd('browse oldfiles')
 end
 vim.api.nvim_create_autocmd("BufEnter", {group = minimal_group, callback = function() vim.treesitter.stop() end})
-
-vim.opt.signcolumn = 'no'
 
 -- vim: ts=2 sts=2 sw=2 et
