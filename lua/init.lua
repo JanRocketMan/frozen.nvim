@@ -122,6 +122,12 @@ vim.keymap.set('n', '<leader>i', ':w<CR>:echo ""<CR>', { desc = 'Wr[i]te current
 vim.keymap.set('n', '<leader>d', ':bd<CR>:echo ""<CR>', { desc = '[D]elete current buffer' })
 vim.keymap.set('n', '<leader>q', ':q!<CR>', { desc = '[Q]uit current window' })
 vim.keymap.set('n', '<leader>x', ':tabclose<CR>', { desc = 'E[x]it current tab' })
+-- Search files
+vim.keymap.set('n', '<leader>f', ':find ', { desc = 'Search [F]iles' })
+vim.keymap.set('n', '<leader>o', function()
+  vim.cmd('Ex | sil! /' .. vim.fn.expand('%:t'))
+  vim.cmd('nohlsearch')
+end, { desc = '[O]pen file tree for current buffer' })
 
 -- Replace in current buffer
 vim.keymap.set({'n', 'x', 'o'}, '<leader>r', '"hy:%s/<C-r>h//g<left><left>', { desc = '[R]eplace all occurences of current selection in current buffer' })
@@ -157,7 +163,7 @@ end, { desc = 'Toggle diagnostic [e]rror list' })
 -- Toggle autoformatting
 vim.keymap.set('n', '<leader>ti', ':lua vim.b.disable_autoformat = not vim.b.disable_autoformat<CR>', { desc = 'Toggle autoformatting'})
 
--- Toggle diagnostic messages and signcolumn
+-- Toggle diagnostic messages
 vim.keymap.set('n', '<leader>to', function()
   if vim.diagnostic.is_disabled() then
     vim.diagnostic.enable()
@@ -170,7 +176,10 @@ end, {desc = "[To]ggle diagnostic messages and signs"})
 vim.cmd('syntax off | highlight Normal guibg=#2a2a2a guifg=#b8a583')
 local minimal_group = vim.api.nvim_create_augroup("MinimalMode", { clear = true })
 function recent_files_picker()
-  vim.cmd('browse oldfiles')
+  local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p")
+  -- Escape special regex characters and backslashes for vim command
+  local escaped_dir = vim.fn.escape(dir_name, '\\/.^$*+?()[]{}|')
+  vim.cmd('browse filter /' .. escaped_dir .. '/ oldfiles')
 end
 vim.api.nvim_create_autocmd("BufEnter", {group = minimal_group, callback = function() vim.treesitter.stop() end})
 
