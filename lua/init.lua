@@ -48,6 +48,7 @@ end
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.updatetime = 250
+vim.opt.path:append("**")
 
 -- Configure how new window splits should be opened
 vim.opt.splitright = true
