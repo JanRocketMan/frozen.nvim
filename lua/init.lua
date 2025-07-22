@@ -161,10 +161,8 @@ vim.keymap.set('n', '<leader>ti', ':lua vim.b.disable_autoformat = not vim.b.dis
 vim.keymap.set('n', '<leader>to', function()
   if vim.diagnostic.is_disabled() then
     vim.diagnostic.enable()
-    vim.opt.signcolumn = 'yes'
   else
     vim.diagnostic.disable()
-    vim.opt.signcolumn = 'no'
   end
 end, {desc = "[To]ggle diagnostic messages and signs"})
 

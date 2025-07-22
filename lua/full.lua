@@ -2,7 +2,7 @@
 
 vim.cmd('syntax on')
 vim.api.nvim_clear_autocmds({ group = "MinimalMode" })
-vim.opt.signcolumn = 'yes'
+vim.opt.signcolumn = 'no'
 function recent_files_picker()
   require('telescope').extensions.recent_files.pick()
 end
