@@ -132,7 +132,14 @@ vim.keymap.set('n', '<leader>p', ':bp<CR>:echo ""<CR>', { desc = 'Goto [p]reviou
 
 -- Load current file path to clipboard, execute terminal command with scratch buffer
 vim.keymap.set('n', '<leader>y', function() vim.fn.setreg('+', vim.fn.expand('%:p')) vim.fn.setreg('"', vim.fn.expand('%:p')) end, { desc = 'Cop[y] to clipboard current path' })
-vim.keymap.set('n', '<leader>c', function() vim.cmd('nos ene | setl bt=nofile bh=wipe') vim.cmd('r !' .. vim.fn.input('')) vim.cmd('1d') end, { desc = 'Execute terminal [c]ommand and drop result to scratch buffer' })
+vim.keymap.set('n', '<leader>c', function()
+  vim.ui.input({}, function(c)
+    if c and c ~= "" then
+      vim.cmd('nos ene | setl bt=nofile bh=wipe')
+      vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.fn.systemlist(c))
+    end
+  end)
+end, { desc = 'Execute terminal [c]ommand and drop result to scratch buffer' })
 
 -- Toggle diagnostic messages in current buffer in quickfix list
 vim.keymap.set('n', '<leader>e', function()
