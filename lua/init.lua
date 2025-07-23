@@ -47,7 +47,7 @@ end
 -- Improve search, reduce update time
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-vim.opt.updatetime = 250
+vim.opt.updatetime = 50
 vim.opt.path:append("**")
 
 -- Configure how new window splits should be opened
@@ -58,6 +58,7 @@ vim.opt.splitbelow = true
 vim.opt.list = true
 vim.opt.fillchars = { eob = ' ' }
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.g.netrw_banner = 0
 
 -- Replace tabs with four spaces when you write them in insert mode or for indentations
 vim.opt.expandtab = true
@@ -76,6 +77,14 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- disable global shada; create separate shadafile for each workspace
+local workspace_path = vim.fn.getcwd()
+local cache_dir = vim.fn.stdpath("data")
+local unique_id = vim.fn.fnamemodify(workspace_path, ":t") ..
+    "_" .. vim.fn.sha256(workspace_path):sub(1, 8) ---@type string
+local file = cache_dir .. "/shadas/" .. unique_id .. ".shada"
+vim.opt.shadafile = file
+
 -- Show recent files within current dir when we open neovim without any files
 -- Note this requires us to set `recent_files_picker` function which we do below
 vim.api.nvim_create_autocmd("VimEnter", {
@@ -86,18 +95,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
       if handle == nil then
         recent_files_picker()
       end
-    end
-  end,
-})
-
--- Return to last edit position when opening files
-vim.api.nvim_create_autocmd("BufReadPost", {
-  group = augroup,
-  callback = function()
-    local mark = vim.api.nvim_buf_get_mark(0, '"')
-    local lcount = vim.api.nvim_buf_line_count(0)
-    if mark[1] > 0 and mark[1] <= lcount then
-      pcall(vim.api.nvim_win_set_cursor, 0, mark)
     end
   end,
 })
@@ -189,10 +186,7 @@ end, {desc = "[To]ggle diagnostic messages and signs"})
 vim.cmd('syntax off | highlight Normal guibg=#2a2a2a guifg=#b8a583')
 local minimal_group = vim.api.nvim_create_augroup("MinimalMode", { clear = true })
 function recent_files_picker()
-  local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p")
-  -- Escape special regex characters and backslashes for vim command
-  local escaped_dir = vim.fn.escape(dir_name, '\\/.^$*+?()[]{}|')
-  vim.cmd('browse filter /' .. escaped_dir .. '/ oldfiles')
+  vim.cmd("normal! '0")
 end
 vim.api.nvim_create_autocmd("BufEnter", {group = minimal_group, callback = function() vim.treesitter.stop() end})
 
