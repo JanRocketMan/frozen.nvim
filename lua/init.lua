@@ -50,15 +50,12 @@ vim.opt.smartcase = true
 vim.opt.updatetime = 50
 vim.opt.path:append("**")
 
--- Configure how new window splits should be opened
-vim.opt.splitright = true
-vim.opt.splitbelow = true
-
 -- Improve symbols repr
 vim.opt.list = true
 vim.opt.fillchars = { eob = ' ' }
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 vim.g.netrw_banner = 0
+vim.opt.signcolumn = 'no'
 
 -- Replace tabs with four spaces when you write them in insert mode or for indentations
 vim.opt.expandtab = true
@@ -116,22 +113,12 @@ vim.keymap.set('n', '<PageUp>', '<C-u>zz', { desc = 'Move [U]p with centering' }
 vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Move [D]own with centering' })
 vim.keymap.set('n', '<PageDown>', '<C-d>zz', { desc = 'Move [D]own with centering' })
 
--- Improve terminal/window navigation
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-vim.keymap.set('n', '<S-Left>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<S-Right>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<S-Down>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<S-Up>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
-
--- Jump between error messages if opened in quickfix list
-vim.keymap.set('n', '[e', vim.diagnostic.goto_prev, { desc = 'Go to previous [e]rror message' })
-vim.keymap.set('n', ']e', vim.diagnostic.goto_next, { desc = 'Go to next [e]rror message' })
-
 -- Save file wo messages, close buffer/window/tab
 vim.keymap.set('n', '<leader>i', ':w<CR>:echo ""<CR>', { desc = 'Wr[i]te current file' })
 vim.keymap.set('n', '<leader>d', ':bd<CR>:echo ""<CR>', { desc = '[D]elete current buffer' })
 vim.keymap.set('n', '<leader>q', ':q!<CR>', { desc = '[Q]uit current window' })
 vim.keymap.set('n', '<leader>x', ':tabclose<CR>', { desc = 'E[x]it current tab' })
+
 -- Search files
 vim.keymap.set('n', '<leader>f', ':find ', { desc = 'Search [F]iles' })
 vim.keymap.set('n', '<leader>o', function()
@@ -169,6 +156,9 @@ vim.keymap.set('n', '<leader>e', function()
   end
   vim.api.nvim_set_current_win(window) -- restore focus to current window
 end, { desc = 'Toggle diagnostic [e]rror list' })
+-- Jump between error messages if opened in quickfix list
+vim.keymap.set('n', '[e', vim.diagnostic.goto_prev, { desc = 'Go to previous [e]rror message' })
+vim.keymap.set('n', ']e', vim.diagnostic.goto_next, { desc = 'Go to next [e]rror message' })
 
 -- Toggle autoformatting
 vim.keymap.set('n', '<leader>ti', ':lua vim.b.disable_autoformat = not vim.b.disable_autoformat<CR>', { desc = 'Toggle autoformatting'})

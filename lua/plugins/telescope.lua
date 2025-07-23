@@ -20,8 +20,6 @@ return {
         end,
       },
       { 'nvim-telescope/telescope-ui-select.nvim' },
-      -- More convenient recent files display
-      {"smartpde/telescope-recent-files"},
       -- Useful for getting pretty icons, but requires a Nerd Font.
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
@@ -32,10 +30,6 @@ return {
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
-          },
-          ['recent_files'] = {
-            include_current_file = false,
-            only_cwd = true,
           },
         },
         defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
@@ -49,7 +43,6 @@ return {
      -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
-      pcall(require('telescope').load_extension, 'recent_files')
 
     end,
   },

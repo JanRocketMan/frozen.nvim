@@ -2,9 +2,8 @@
 
 vim.cmd('syntax on')
 vim.api.nvim_clear_autocmds({ group = "MinimalMode" })
-vim.opt.signcolumn = 'no'
 function recent_files_picker()
-  require('telescope').extensions.recent_files.pick()
+  vim.defer_fn(function() vim.cmd("normal! '0") end, 0)
 end
 
 -- 4. [[Add plugin keymaps]]
@@ -23,13 +22,9 @@ vim.keymap.set('n', 'Q', function() require('mini.files').close() end, { desc = 
 -- Use telescope to search for files, words and jump between recent files
 vim.keymap.set('n', '<leader>f', function() require('telescope.builtin').find_files() end, { desc = 'Search [F]iles' })
 vim.keymap.set('n', '<leader>s', function() require('telescope.builtin').live_grep() end, { desc = '[S]earch by grep' })
-vim.keymap.set('n', '<leader>n', function()
-  require('telescope').extensions.recent_files.pick()
-end, { desc = 'Search Recent Files' })
 
 -- Keymaps for git plugins
 vim.keymap.set('n', '<leader>g', function() require('neogit'):open() end, { desc = 'Open neo[g]it window'})
-vim.keymap.set('v', '<leader>hl', function() require("git-log").check_log() end, { desc = 'Show git log of current selection'})
 
 -- Basic debugging keymaps
 vim.keymap.set('n', '<leader>b', function() require('dap').toggle_breakpoint() end, { desc = 'Debug: Toggle [B]reakpoint' })
