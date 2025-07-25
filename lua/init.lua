@@ -55,7 +55,9 @@ vim.opt.list = true
 vim.opt.fillchars = { eob = ' ' }
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 vim.g.netrw_banner = 0
+vim.g.netrw_liststyle = 3
 vim.opt.signcolumn = 'no'
+vim.opt.splitbelow = true
 
 -- Replace tabs with four spaces when you write them in insert mode or for indentations
 vim.opt.expandtab = true
@@ -177,6 +179,8 @@ vim.cmd('syntax off | highlight Normal guibg=#2a2a2a guifg=#b8a583')
 local minimal_group = vim.api.nvim_create_augroup("MinimalMode", { clear = true })
 function recent_files_picker()
   vim.cmd("normal! '0")
+  vim.cmd("1b")
+  vim.cmd("bd")
 end
 vim.api.nvim_create_autocmd("BufEnter", {group = minimal_group, callback = function() vim.treesitter.stop() end})
 

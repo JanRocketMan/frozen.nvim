@@ -10,7 +10,6 @@
   "gitsigns.nvim": { "branch": "main", "commit": "3ec5fbd9202ae3908551c98c4b6c3c05ff7c8e96" },
   "lazy.nvim": { "branch": "main", "commit": "6c3bda4aca61a13a9c63f1c1d1b16b9d3be90d7a" },
   "mini.ai": { "branch": "main", "commit": "ebb04799794a7f94628153991e6334c3304961b8" },
-  "mini.files": { "branch": "main", "commit": "01001e0cfc1e79f581d055ae3f70fbac96a2f378" },
   "namu.nvim": { "branch": "main", "commit": "5e81a24a98af48fb4a8b937752c77a9fabb97b7d" },
   "neogit": { "branch": "master", "commit": "63124cf520ff24d09deb3b850e053908ab0fc66a" },
   "nvim-autopairs": { "branch": "master", "commit": "6522027785b305269fa17088395dfc0f456cedd2" },

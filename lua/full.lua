@@ -2,8 +2,9 @@
 
 vim.cmd('syntax on')
 vim.api.nvim_clear_autocmds({ group = "MinimalMode" })
+local min_mode_picker = recent_files_picker
 function recent_files_picker()
-  vim.defer_fn(function() vim.cmd("normal! '0") end, 0)
+  vim.defer_fn(function() min_mode_picker() end, 0)
 end
 
 -- 4. [[Add plugin keymaps]]
@@ -11,13 +12,6 @@ end
 -- Use fast navigation w flash
 vim.keymap.set({'n', 'x', 'o'}, 's', function() require('flash').jump() end, {desc = "Flash jump"})
 vim.keymap.set({'n', 'x', 'o'}, 'R', function() require('flash').treesitter() end, {desc = "Flash jump treesitter"})
-
--- Manipulate files with mini.files
-vim.keymap.set('n', '<leader>o', function()
-  require('mini.files').open(vim.api.nvim_buf_get_name(0), true)
-  require('mini.files').reveal_cwd()
-end, { desc = '[O]pen file tree for current buffer' })
-vim.keymap.set('n', 'Q', function() require('mini.files').close() end, { desc = 'Close minifiles buffer' })
 
 -- Use telescope to search for files, words and jump between recent files
 vim.keymap.set('n', '<leader>f', function() require('telescope.builtin').find_files() end, { desc = 'Search [F]iles' })
