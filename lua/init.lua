@@ -47,7 +47,7 @@ end
 -- Improve search, reduce update time
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-vim.opt.updatetime = 50
+vim.g.cursorhold = 50
 vim.opt.path:append("**")
 
 -- Improve symbols repr
