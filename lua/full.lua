@@ -25,6 +25,7 @@ vim.keymap.set('n', '<leader>b', function() require('dap').toggle_breakpoint() e
 vim.keymap.set('n', '<F4>', function()
   require('dap').toggle_breakpoint()
   require("debugmaster").mode.toggle({nowait=true})
+  vim.cmd('lua vim.opt.signcolumn="yes"')
   require('dap').continue()
 end, { desc = 'Start debugging' })
 vim.keymap.set('n', '<F5>', function() require('dap').continue() end, { desc = 'Debug: Continue' })
