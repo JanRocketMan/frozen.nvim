@@ -15,6 +15,7 @@ vim.o.ruler = false
 vim.o.showcmd = false
 vim.opt.showmode = false
 vim.o.laststatus = 0
+vim.o.cmdwinheight = 1
 
 -- Support indents in multi-line strings, keep the undo history for buffer with file if we close it
 vim.opt.breakindent = true
@@ -140,6 +141,7 @@ vim.keymap.set('n', '<leader>y', function() vim.fn.setreg('+', vim.fn.expand('%:
 vim.keymap.set('n', '<leader>c', function()
   vim.ui.input({}, function(c)
     if c and c ~= "" then
+      c = 'bash -i -c "source ~/.bashrc && ' .. c .. '"'
       vim.cmd('nos ene | setl bt=nofile bh=wipe')
       vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.fn.systemlist(c))
     end
