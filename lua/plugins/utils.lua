@@ -30,11 +30,11 @@ return {
     -- Also disable background highlighting
     ---@type Flash.Config
     opts = {
-      jump = {autojump = true},
+      jump = {autojump = false},
       modes = {
         char = {enabled = false}
       },
-      highlight = {backdrop = false}
+      highlight = {backdrop = false, matches = false}
     },
     -- stylua: ignore
   },
