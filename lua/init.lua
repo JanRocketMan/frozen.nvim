@@ -164,16 +164,16 @@ end, { desc = 'Toggle diagnostic [e]rror list' })
 vim.keymap.set('n', '[e', vim.diagnostic.goto_prev, { desc = 'Go to previous [e]rror message' })
 vim.keymap.set('n', ']e', vim.diagnostic.goto_next, { desc = 'Go to next [e]rror message' })
 
--- Toggle autoformatting
-vim.keymap.set('n', '<leader>ti', ':lua vim.b.disable_autoformat = not vim.b.disable_autoformat<CR>', { desc = 'Toggle autoformatting'})
+-- Toggle autoformatting (disabled by default)
+vim.g.disable_autoformat = true
+vim.keymap.set('n', '<leader>ti', function()
+  vim.g.disable_autoformat = not vim.g.disable_autoformat
+end, { desc = 'Toggle autoformatting'})
 
--- Toggle diagnostic messages
+-- Toggle lsp messages (disabled by default)
+vim.diagnostic.enable(false)
 vim.keymap.set('n', '<leader>to', function()
-  if vim.diagnostic.is_disabled() then
-    vim.diagnostic.enable()
-  else
-    vim.diagnostic.disable()
-  end
+  vim.diagnostic.enable(not vim.diagnostic.is_enabled())
 end, {desc = "[To]ggle diagnostic messages and signs"})
 
 -- Apply minimal mode settings
