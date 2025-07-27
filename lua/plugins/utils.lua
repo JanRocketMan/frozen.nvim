@@ -34,6 +34,7 @@ return {
       modes = {
         char = {enabled = false}
       },
+      label = {uppercase = false},
       highlight = {backdrop = false, matches = false}
     },
     -- stylua: ignore
