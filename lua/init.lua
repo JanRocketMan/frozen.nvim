@@ -225,6 +225,37 @@ vim.keymap.set('n', '<leader>c', function()
   end)
 end, { desc = 'Execute terminal [c]ommand and drop result to scratch buffer' })
 
+-- Improve jumping once scratchbuffer list is opened
+vim.keymap.set('n', 'gf', function()
+  local line = vim.fn.getline('.')
+  local cursor_col = vim.fn.col('.') -- 1-based cursor column
+
+  local matched = nil
+
+  -- Match patterns like: filename:line:col:
+  for start_col, match in line:gmatch '()([%w%./_%-]+:%d+:%d+):' do
+    local file, lnum, col = match:match('^(.-):(%d+):(%d+)$')
+    if file and lnum and col then
+      local end_col = start_col + #match
+      if cursor_col >= start_col and cursor_col <= end_col then
+        matched = {
+          file = file,
+          lnum = tonumber(lnum),
+          col = tonumber(col),
+        }
+        break
+      end
+    end
+  end
+
+  if matched then
+    vim.cmd('edit ' .. matched.file)
+    vim.api.nvim_win_set_cursor(0, { matched.lnum, matched.col - 1 }) -- 0-indexed column
+  else
+    vim.cmd('normal! gf') -- fallback
+  end
+end, { desc = 'Smart gf: jump to file:line:column if available' })
+
 -- Toggle lsp messages (disabled by default)
 vim.diagnostic.enable(false)
 vim.keymap.set('n', '<leader>to', function()
