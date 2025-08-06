@@ -1,27 +1,6 @@
 return {
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
-  -- Better Around/Inside textobjects
-  -- Examples:
-  --  - va)  - [V]isually select [A]round [)]paren
-  --  - yinq - [Y]ank [I]nside [N]ext [']quote
-  --  - ci'  - [C]hange [I]nside [']quote
-  { 'echasnovski/mini.ai', opts = { n_lines = 500 } },
-  -- Automatically add character pairs
-  {
-    'windwp/nvim-autopairs',
-    event = "InsertEnter",
-    config = true
-  },
-  -- Set default colorscheme
-  {
-    'tomasiser/vim-code-dark',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    init = function()
-      vim.cmd.colorscheme 'codedark'
-      vim.cmd.hi 'Comment gui=none'
-    end,
-  },
   -- Fast navigation in the current buffer
   {
     'folke/flash.nvim',

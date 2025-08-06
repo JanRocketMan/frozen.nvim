@@ -107,6 +107,15 @@ vim.keymap.set('n', 'c', '"_c')
 vim.keymap.set('n', 'x', '"_x')
 vim.keymap.set('v', 'p', '"_dP')
 
+-- Use emacs-compatible keymaps in insert mode
+vim.keymap.set('i', '<M-f>', 'W')
+vim.keymap.set('i', '<M-b>', 'B')
+vim.keymap.set('i', '', '')
+vim.keymap.set('i', '', 'I')
+vim.keymap.set('i', '', 'A')
+vim.keymap.set('i', '', 'I')
+vim.keymap.set('i', '', 'u')
+
 -- Clear cmd messages and highlight on Esc
 vim.keymap.set('n', '<Esc>', ':nohlsearch<CR>:echo ""<CR>')
 
@@ -133,8 +142,73 @@ end, { desc = '[O]pen file tree for current buffer' })
 vim.keymap.set({'n', 'x', 'o'}, '<leader>r', '"hy:%s/<C-r>h//g<left><left>', { desc = '[R]eplace all occurences of current selection in current buffer' })
 
 -- Buffer navigation
-vim.keymap.set('n', '<leader>n', ':bn<CR>:echo ""<CR>', { desc = 'Goto [n]ext buffer' })
-vim.keymap.set('n', '<leader>p', ':bp<CR>:echo ""<CR>', { desc = 'Goto [p]revious buffer' })
+vim.keymap.set('n', ']q', function()
+  local ok = pcall(vim.cmd, 'cnext')
+  if not ok then
+    vim.cmd('cfirst')
+  end
+end, { desc = 'Next quickfix entry (cycle)' })
+
+vim.keymap.set('n', '[q', function()
+  local ok = pcall(vim.cmd, 'cprev')
+  if not ok then
+    vim.cmd('clast')
+  end
+end, { desc = 'Previous quickfix entry (cycle)' })
+
+local function buffers_in_quickfix(opts)
+  opts = opts or {}
+  local excl_hidden = opts.hidden or false
+  local only_py = opts.only_py or false
+
+  local current_buf = vim.api.nvim_get_current_buf()
+  local buffers = vim.fn.getbufinfo({ buflisted = 1 })
+
+  table.sort(buffers, function(a, b)
+    return a.lastused > b.lastused
+  end)
+
+  local lines = {}
+
+  for _, buf in ipairs(buffers) do
+    local name = buf.name
+    local basename = vim.fn.fnamemodify(name, ':t')
+
+    local is_hidden = vim.startswith(basename, '.')
+    local is_py = vim.endswith(name, '.py')
+
+    if buf.bufnr ~= current_buf
+        and name ~= ''
+        and vim.api.nvim_buf_is_loaded(buf.bufnr)
+        and (excl_hidden or not is_hidden)
+        and (not only_py or is_py) then
+
+      local filepath = vim.fn.fnamemodify(name, ':.') -- relative to CWD
+      local mark = vim.api.nvim_buf_get_mark(buf.bufnr, '"')
+      local line = mark[1] > 0 and mark[1] or 1
+      local col = mark[2] > 0 and mark[2] or 0
+      table.insert(lines, string.format('%s:%d:%d: %s', filepath, line, col + 1, filepath))
+    end
+  end
+
+  if vim.tbl_isempty(lines) then
+    vim.cmd('echo "No buffers"')
+    vim.defer_fn(function() vim.cmd('echo ""') end, 100)
+    return
+  end
+
+  vim.cmd('nos ene | setl bt=nofile bh=wipe')
+  vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
+  vim.cmd('cbu')
+end
+
+vim.keymap.set('n', '<leader>n', function()
+  buffers_in_quickfix()
+end, { desc = 'Show all buffers' })
+
+vim.keymap.set('n', '<leader>p', function()
+  buffers_in_quickfix({ excl_hidden = true, only_py = true })
+end, { desc = 'Show Python buffers only' })
 
 -- Load current file path to clipboard, execute terminal command with scratch buffer
 vim.keymap.set('n', '<leader>y', function() vim.fn.setreg('+', vim.fn.expand('%:p')) vim.fn.setreg('"', vim.fn.expand('%:p')) end, { desc = 'Cop[y] to clipboard current path' })

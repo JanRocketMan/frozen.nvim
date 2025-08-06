@@ -7,6 +7,20 @@ function recent_files_picker()
   vim.defer_fn(function() min_mode_picker() end, 0)
 end
 
+-- Set default colorscheme
+vim.cmd.colorscheme('frozen')
+vim.api.nvim_create_autocmd('BufWinEnter', {
+  pattern = '*',
+  callback = function(args)
+    vim.schedule(function()
+      local ok, rd = pcall(require, 'rainbow-delimiters')
+      if ok and rd then
+        vim.cmd('doautocmd FileType')  -- trigger highlighting again
+      end
+    end)
+  end,
+})
+
 -- 4. [[Add plugin keymaps]]
 
 -- Use fast navigation w flash
