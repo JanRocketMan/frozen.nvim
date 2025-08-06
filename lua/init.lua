@@ -8,6 +8,9 @@ vim.g.maplocalleader = ' '
 vim.g.have_nerd_font = true
 vim.o.cursorline = false
 
+-- Disable swap files
+vim.opt.swapfile = false
+
 -- Enable mouse, hide status and minimize cmd bar, hide any bar stats
 vim.opt.mouse = 'a'
 vim.o.cmdheight = 1
