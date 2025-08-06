@@ -21,6 +21,9 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
   end,
 })
 
+-- Disable autoformatting by default
+vim.g.disable_autoformat = true
+
 -- 4. [[Add plugin keymaps]]
 
 -- Use fast navigation w flash
@@ -39,6 +42,31 @@ vim.api.nvim_create_autocmd({"FileType", "BufEnter", "BufWinEnter"},
     end
 })
 vim.keymap.set({'n', 'x', 'o'}, 'R', function() require('flash').treesitter() end, {desc = "Flash jump treesitter"})
+
+-- Save with autoformatting
+vim.keymap.set('n', '<leader>ti', function()
+  vim.g.disable_autoformat = false
+  vim.cmd('w')
+  vim.cmd('echo ""')
+  vim.g.disable_autoformat = true
+end, { desc = 'Save with autoformatting'})
+
+-- Toggle diagnostic messages in current buffer in quickfix list
+vim.keymap.set('n', '<leader>te', function()
+  vim.diagnostic.setloclist({ open = false }) -- don't open and focus
+  local window = vim.api.nvim_get_current_win()
+  local qf_winid = vim.fn.getloclist(window, { winid = 0 }).winid
+  if qf_winid > 0 then
+    vim.cmd('lclose')
+  else
+    vim.diagnostic.setloclist()
+  end
+  vim.api.nvim_set_current_win(window) -- restore focus to current window
+end, { desc = 'Toggle diagnostic [e]rror list' })
+
+-- Jump between error messages if opened in quickfix list
+vim.keymap.set('n', '[e', vim.diagnostic.goto_prev, { desc = 'Go to previous [e]rror message' })
+vim.keymap.set('n', ']e', vim.diagnostic.goto_next, { desc = 'Go to next [e]rror message' })
 
 -- Use telescope to search for files, words and jump between recent files
 vim.keymap.set('n', '<leader>f', function() require('telescope.builtin').find_files() end, { desc = 'Search [F]iles' })

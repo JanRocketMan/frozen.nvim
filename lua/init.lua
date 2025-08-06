@@ -108,8 +108,8 @@ vim.keymap.set('n', 'x', '"_x')
 vim.keymap.set('v', 'p', '"_dP')
 
 -- Use emacs-compatible keymaps in insert mode
-vim.keymap.set('i', '<M-f>', 'W')
-vim.keymap.set('i', '<M-b>', 'B')
+vim.keymap.set('i', '<M-f>', 'w')
+vim.keymap.set('i', '<M-b>', 'b')
 vim.keymap.set('i', '', '')
 vim.keymap.set('i', '', 'I')
 vim.keymap.set('i', '', 'A')
@@ -206,9 +206,9 @@ vim.keymap.set('n', '<leader>n', function()
   buffers_in_quickfix()
 end, { desc = 'Show all buffers' })
 
-vim.keymap.set('n', '<leader>p', function()
+vim.keymap.set('n', '<leader>e', function()
   buffers_in_quickfix({ excl_hidden = true, only_py = true })
-end, { desc = 'Show Python buffers only' })
+end, { desc = 'Show buffers excluding hidden' })
 
 -- Load current file path to clipboard, execute terminal command with scratch buffer
 vim.keymap.set('n', '<leader>y', function() vim.fn.setreg('+', vim.fn.expand('%:p')) vim.fn.setreg('"', vim.fn.expand('%:p')) end, { desc = 'Cop[y] to clipboard current path' })
@@ -221,28 +221,6 @@ vim.keymap.set('n', '<leader>c', function()
     end
   end)
 end, { desc = 'Execute terminal [c]ommand and drop result to scratch buffer' })
-
--- Toggle diagnostic messages in current buffer in quickfix list
-vim.keymap.set('n', '<leader>e', function()
-  vim.diagnostic.setloclist({ open = false }) -- don't open and focus
-  local window = vim.api.nvim_get_current_win()
-  local qf_winid = vim.fn.getloclist(window, { winid = 0 }).winid
-  if qf_winid > 0 then
-    vim.cmd('lclose')
-  else
-    vim.diagnostic.setloclist()
-  end
-  vim.api.nvim_set_current_win(window) -- restore focus to current window
-end, { desc = 'Toggle diagnostic [e]rror list' })
--- Jump between error messages if opened in quickfix list
-vim.keymap.set('n', '[e', vim.diagnostic.goto_prev, { desc = 'Go to previous [e]rror message' })
-vim.keymap.set('n', ']e', vim.diagnostic.goto_next, { desc = 'Go to next [e]rror message' })
-
--- Toggle autoformatting (disabled by default)
-vim.g.disable_autoformat = true
-vim.keymap.set('n', '<leader>ti', function()
-  vim.g.disable_autoformat = not vim.g.disable_autoformat
-end, { desc = 'Toggle autoformatting'})
 
 -- Toggle lsp messages (disabled by default)
 vim.diagnostic.enable(false)
