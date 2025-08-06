@@ -159,9 +159,19 @@ vim.keymap.set('n', '[q', function()
   end
 end, { desc = 'Previous quickfix entry (cycle)' })
 
+local excluded_patterns = { "/site%-packages/", "%.tmp/" }
+local function is_excluded(path)
+  for _, pattern in ipairs(excluded_patterns) do
+    if path:find(pattern) then
+      return true
+    end
+  end
+  return false
+end
+
 local function buffers_in_quickfix(opts)
   opts = opts or {}
-  local excl_hidden = opts.hidden or false
+  local hidden = opts.hidden
   local only_py = opts.only_py or false
 
   local current_buf = vim.api.nvim_get_current_buf()
@@ -175,15 +185,12 @@ local function buffers_in_quickfix(opts)
 
   for _, buf in ipairs(buffers) do
     local name = buf.name
-    local basename = vim.fn.fnamemodify(name, ':t')
-
-    local is_hidden = vim.startswith(basename, '.')
     local is_py = vim.endswith(name, '.py')
 
     if buf.bufnr ~= current_buf
         and name ~= ''
         and vim.api.nvim_buf_is_loaded(buf.bufnr)
-        and (excl_hidden or not is_hidden)
+        and (not is_excluded(name) or hidden)
         and (not only_py or is_py) then
 
       local filepath = vim.fn.fnamemodify(name, ':.') -- relative to CWD
@@ -206,11 +213,11 @@ local function buffers_in_quickfix(opts)
 end
 
 vim.keymap.set('n', '<leader>n', function()
-  buffers_in_quickfix()
+  buffers_in_quickfix({ hidden = true })
 end, { desc = 'Show all buffers' })
 
 vim.keymap.set('n', '<leader>e', function()
-  buffers_in_quickfix({ excl_hidden = true, only_py = true })
+  buffers_in_quickfix({ hidden = false, only_py = true })
 end, { desc = 'Show buffers excluding hidden' })
 
 -- Load current file path to clipboard, execute terminal command with scratch buffer
@@ -224,6 +231,40 @@ vim.keymap.set('n', '<leader>c', function()
     end
   end)
 end, { desc = 'Execute terminal [c]ommand and drop result to scratch buffer' })
+vim.keymap.set('n', 'gd', function()
+  local symbol = vim.fn.expand('<cword>')
+  if symbol == '' then return end
+
+  -- Use rg with --vimgrep and -uu to include hidden + ignored files
+  local rg_cmd = string.format(
+    "rg -uu --vimgrep '\\b(class|def) %s\\b' --glob '*.py'",
+    symbol
+  )
+
+  -- Run rg and collect output
+  local results = vim.fn.systemlist(rg_cmd)
+
+  if vim.tbl_isempty(results) then
+    vim.cmd('echo "No matches found"')
+    vim.defer_fn(function() vim.cmd('echo ""') end, 100)
+    return
+  end
+
+  if #results == 1 then
+    local line = results[1]
+    local file, lnum, col = line:match('^(.-):(%d+):(%d+):')
+    if file and lnum and col then
+      vim.cmd('edit ' .. file)
+      vim.api.nvim_win_set_cursor(0, { tonumber(lnum), tonumber(col) + 1})
+      vim.cmd('normal! w')
+      return
+    end
+  end
+
+  -- Create scratch buffer
+  vim.cmd('nos ene | setl bt=nofile bh=wipe')
+  vim.api.nvim_buf_set_lines(0, 0, -1, false, results)
+end, { desc = 'RG-based goto definition (Python class/def)' })
 
 -- Improve jumping once scratchbuffer list is opened
 vim.keymap.set('n', 'gf', function()
