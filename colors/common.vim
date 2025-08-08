@@ -9,7 +9,6 @@ hi clear
 if exists("syntax_on")
     syntax reset
 endif
-let g:colors_name="codedark"
 
 " Highlighting function (inspiration from https://github.com/chriskempson/base16-vim)
 if &t_Co >= 256
@@ -74,31 +73,22 @@ endif
 " General appearance colors:
 " (some of them may be unused)
 
-" Transparent background
-if !exists("g:codedark_transparent")
-    let g:codedark_transparent=0
-endif
-
-if !exists("g:codedark_modern")
-    let g:codedark_modern=0
+" Set custom yellowish colorscheme
+if !exists("g:codedark_yellow")
+    let g:codedark_yellow=0
 endif
 
 let s:cdNone = {'gui': 'NONE', 'cterm': 'NONE', 'cterm256': 'NONE'}
 let s:cdFront = {'gui': '#D4D4D4', 'cterm': s:cterm05, 'cterm256': '188'}
+if g:codedark_yellow | let s:cdFront = {'gui': '#b8a583', 'cterm': 'NONE', 'cterm256': '234'} | endif
 let s:cdBack = {'gui': '#1E1E1E', 'cterm': s:cterm00, 'cterm256': '234'}
-if g:codedark_modern | let s:cdBack = {'gui': '#1f1f1f', 'cterm': 'NONE', 'cterm256': '234'} | endif
-if g:codedark_transparent | let s:cdBack = {'gui': 'NONE', 'cterm': 'NONE', 'cterm256': 'NONE'} | endif
 
 let s:cdTabCurrent = {'gui': '#1E1E1E', 'cterm': s:cterm00, 'cterm256': '234'}
-if g:codedark_modern | let s:cdTabCurrent = {'gui': '#1f1f1f', 'cterm': s:cterm00, 'cterm256': '234'} | endif
 let s:cdTabOther = {'gui': '#2D2D2D', 'cterm': s:cterm01, 'cterm256': '236'}
-if g:codedark_modern | let s:cdTabOther = {'gui': '#181818', 'cterm': s:cterm01, 'cterm256': '236'} | endif
 let s:cdTabOutside = {'gui': '#252526', 'cterm': s:cterm01, 'cterm256': '235'}
-if g:codedark_modern | let s:cdTabOutside = {'gui': '#181818', 'cterm': s:cterm01, 'cterm256': '236'} | endif
 
 let s:cdLeftDark = {'gui': '#252526', 'cterm': s:cterm01, 'cterm256': '235'}
 let s:cdLeftMid = {'gui': '#373737', 'cterm': s:cterm03, 'cterm256': '237'}
-if g:codedark_modern | let s:cdLeftMid = {'gui': '#181818', 'cterm': 'NONE', 'cterm256': '237'} | endif
 let s:cdLeftLight = {'gui': '#3F3F46', 'cterm': s:cterm03, 'cterm256': '238'}
 
 let s:cdPopupFront = {'gui': '#BBBBBB', 'cterm': s:cterm06, 'cterm256': '250'}
@@ -117,50 +107,53 @@ let s:cdSelection = {'gui': '#264F78', 'cterm': s:cterm03, 'cterm256': '24'}
 let s:cdLineNumber = {'gui': '#5A5A5A', 'cterm': s:cterm04, 'cterm256': '240'}
 
 let s:cdDiffRedDark = {'gui': '#4B1818', 'cterm': s:cterm08, 'cterm256': '52'}
-if g:codedark_modern | let s:cdDiffRedDark = {'gui': '#da3633', 'cterm': 'NONE', 'cterm256': '52'} | endif
 let s:cdDiffRedLight = {'gui': '#6F1313', 'cterm': s:cterm08, 'cterm256': '52'}
 let s:cdDiffRedLightLight = {'gui': '#FB0101', 'cterm': s:cterm08, 'cterm256': '09'}
 let s:cdDiffGreenDark = {'gui': '#373D29', 'cterm': s:cterm0B, 'cterm256': '237'}
-if g:codedark_modern | let s:cdDiffGreenDark = {'gui': '#238636', 'cterm': 'NONE', 'cterm256': '237'} | endif
 let s:cdDiffGreenLight = {'gui': '#4B5632', 'cterm': s:cterm09, 'cterm256': '58'}
 let s:cdDiffBlueLight = {'gui': '#87d7ff', 'cterm': s:cterm0C, 'cterm256': '117'}
 let s:cdDiffBlue = {'gui': '#005f87', 'cterm': s:cterm0D, 'cterm256': '24'}
 
 let s:cdSearchCurrent = {'gui': '#4B5632', 'cterm': s:cterm09, 'cterm256': '58'}
-if g:codedark_modern | let s:cdSearchCurrent = {'gui': '#9e6a03', 'cterm': s:cterm09, 'cterm256': '58'} | endif
 let s:cdSearch = {'gui': '#773800', 'cterm': s:cterm03, 'cterm256': '94'}
 
 " Syntax colors:
-
-if !exists("g:codedark_conservative")
-    let g:codedark_conservative=0
-endif
-
-" Italicized comments
-if !exists("g:codedark_italics")
-    let g:codedark_italics=0
-endif
 
 let s:cdGray = {'gui': '#808080', 'cterm': s:cterm04, 'cterm256': '08'}
 let s:cdViolet = {'gui': '#646695', 'cterm': s:cterm04, 'cterm256': '60'}
 let s:cdBlue = {'gui': '#569CD6', 'cterm': s:cterm0D, 'cterm256': '75'}
 let s:cdDarkBlue = {'gui': '#223E55', 'cterm': s:cterm0D, 'cterm256': '73'}
 let s:cdLightBlue = {'gui': '#9CDCFE', 'cterm': s:cterm0C, 'cterm256': '117'}
-if g:codedark_conservative | let s:cdLightBlue = s:cdFront | endif
 let s:cdGreen = {'gui': '#6A9955', 'cterm': s:cterm0B, 'cterm256': '65'}
 let s:cdBlueGreen = {'gui': '#4EC9B0', 'cterm': s:cterm0F, 'cterm256': '43'}
 let s:cdLightGreen = {'gui': '#B5CEA8', 'cterm': s:cterm09, 'cterm256': '151'}
 let s:cdRed = {'gui': '#F44747', 'cterm': s:cterm08, 'cterm256': '203'}
-if g:codedark_modern | let s:cdRed = {'gui': '#f85149', 'cterm': s:cterm08, 'cterm256': '203'} | endif
 let s:cdOrange = {'gui': '#CE9178', 'cterm': s:cterm0F, 'cterm256': '173'}
 let s:cdLightRed = {'gui': '#D16969', 'cterm': s:cterm08, 'cterm256': '167'}
-if g:codedark_conservative | let s:cdLightRed = s:cdOrange | endif
 let s:cdYellowOrange = {'gui': '#D7BA7D', 'cterm': s:cterm0A, 'cterm256': '179'}
 let s:cdYellow = {'gui': '#DCDCAA', 'cterm': s:cterm0A, 'cterm256': '187'}
-if g:codedark_conservative | let s:cdYellow = s:cdFront | endif
 let s:cdPink = {'gui': '#C586C0', 'cterm': s:cterm0E, 'cterm256': '176'}
-if g:codedark_conservative | let s:cdPink = s:cdBlue | endif
 let s:cdSilver = {'gui': '#C0C0C0', 'cterm': s:cterm05, 'cterm256': '7'}
+
+if g:codedark_yellow
+  let s:cdLightBlue   = {'gui': '#b8a583', 'cterm': s:cterm0C, 'cterm256': '117'}
+
+  let s:cdBlue     = {'gui': '#96724e', 'cterm': s:cterm0D, 'cterm256': '75'}
+  let s:cdDarkBlue = {'gui': '#96724e', 'cterm': s:cterm0D, 'cterm256': '73'}
+
+  let s:cdRed         = {'gui': '#96724e', 'cterm': s:cterm08, 'cterm256': '179'}
+  let s:cdLightRed    = {'gui': '#ddd2b8', 'cterm': s:cterm08, 'cterm256': '179'}
+  let s:cdOrange      = {'gui': '#ddd2b8', 'cterm': s:cterm0F, 'cterm256': '179'}
+
+  let s:cdYellowOrange= {'gui': '#b8a583', 'cterm': s:cterm0A, 'cterm256': '179'}
+  let s:cdYellow      = {'gui': '#b8a583', 'cterm': s:cterm0A, 'cterm256': '179'}
+
+  let s:cdGreen       = {'gui': '#ddd2b8', 'cterm': s:cterm0B, 'cterm256': '187'}
+  let s:cdLightGreen  = {'gui': '#b8a583', 'cterm': s:cterm09, 'cterm256': '187'}
+  let s:cdBlueGreen   = {'gui': '#96724e', 'cterm': s:cterm0F, 'cterm256': '187'}
+
+  let s:cdPink = {'gui': '#96724e', 'cterm': s:cterm0E, 'cterm256': '176'}
+endif
 
 " UI (built-in)
 "    <sid>hi(GROUP, FOREGROUND, BACKGROUND, ATTRIBUTE, SPECIAL)
@@ -211,7 +204,7 @@ hi! link diffAdded DiffAdd
 hi! link diffChanged DiffChange
 hi! link diffRemoved DiffDelete
 
-if g:codedark_italics | call <sid>hi('Comment', s:cdGreen, {}, 'italic', {}) | else | call <sid>hi('Comment', s:cdGreen, {}, 'none', {}) | endif
+call <sid>hi('Comment', s:cdGreen, {}, 'none', {})
 
 " SYNTAX HIGHLIGHT (built-in)
 call <sid>hi('Constant', s:cdBlue, {}, 'none', {})
@@ -242,7 +235,7 @@ call <sid>hi('Special', s:cdYellowOrange, {}, 'none', {})
 call <sid>hi('SpecialChar', s:cdFront, {}, 'none', {})
 call <sid>hi('Tag', s:cdFront, {}, 'none', {})
 call <sid>hi('Delimiter', s:cdFront, {}, 'none', {})
-if g:codedark_italics | call <sid>hi('SpecialComment', s:cdGreen, {}, 'italic', {}) | else | call <sid>hi('SpecialComment', s:cdGreen, {}, 'none', {}) | endif
+call <sid>hi('SpecialComment', s:cdGreen, {}, 'none', {})
 call <sid>hi('Debug', s:cdFront, {}, 'none', {})
 call <sid>hi('Underlined', s:cdNone, {}, 'underline', {})
 call <sid>hi("Conceal", s:cdFront, s:cdBack, 'none', {})
@@ -656,3 +649,23 @@ call <sid>hi('LspCxxHlSymNamespace', s:cdSilver, {}, 'none', {})
 call <sid>hi('CocHighlightText', {}, s:cdSelection, 'none', {})
 call <sid>hi('CocExplorerIndentLine', s:cdCursorDark, {}, 'none', {})
 call <sid>hi('CocInlayHint', s:cdLineNumber, {}, 'none', {})
+
+" Fix for Rainbow parenthesis
+augroup MyRainbowFix
+  autocmd!
+  autocmd ColorScheme * call s:RainbowFix()
+augroup END
+
+function! s:RainbowFix() abort
+  let l:color1 = s:cdRed['gui']
+  let l:color2 = s:cdGreen['gui']
+
+  " Alternate between the two colors
+  exec 'hi RainbowDelimiterRed    guifg=' . l:color1
+  exec 'hi RainbowDelimiterYellow guifg=' . l:color2
+  exec 'hi RainbowDelimiterBlue   guifg=' . l:color1
+  exec 'hi RainbowDelimiterOrange guifg=' . l:color2
+  exec 'hi RainbowDelimiterGreen  guifg=' . l:color1
+  exec 'hi RainbowDelimiterViolet guifg=' . l:color2
+  exec 'hi RainbowDelimiterCyan   guifg=' . l:color1
+endfunction

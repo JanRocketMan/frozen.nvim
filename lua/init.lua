@@ -304,7 +304,7 @@ vim.keymap.set('n', '<leader>to', function()
 end, {desc = "[To]ggle diagnostic messages and signs"})
 
 -- Apply minimal mode settings
-vim.cmd('syntax off | highlight Normal guibg=#2a2a2a guifg=#b8a583')
+vim.cmd('syntax off | highlight Normal guibg=#1e1e1e guifg=#b8a583')
 local minimal_group = vim.api.nvim_create_augroup("MinimalMode", { clear = true })
 function recent_files_picker()
   vim.cmd("normal! '0")
