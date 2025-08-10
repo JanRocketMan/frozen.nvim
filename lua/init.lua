@@ -93,6 +93,10 @@ vim.opt.shadafile = file
 vim.api.nvim_create_autocmd("VimEnter", {
   group = minimal_group,
   callback = function()
+    -- If any command-line arguments were given (files/dirs/“-”), do nothing.
+    if vim.fn.argc() > 0 then
+      return
+    end
     if vim.api.nvim_buf_get_offset(0, 0) <= 0 then
       local handle = io.open(vim.api.nvim_buf_get_name(0))
       if handle == nil then
@@ -237,7 +241,7 @@ vim.keymap.set('n', 'gd', function()
 
   -- Use rg with --vimgrep and -uu to include hidden + ignored files
   local rg_cmd = string.format(
-    "rg -uu --vimgrep '\\b(class|def) %s\\b' --glob '*.py'",
+    "rg -uu --vimgrep '\\b(class|def) %s\\b' --glob '*.{py,pyi}'",
     symbol
   )
 
