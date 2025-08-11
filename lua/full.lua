@@ -8,7 +8,7 @@ function recent_files_picker()
 end
 
 -- Set default colorscheme
-vim.cmd.colorscheme('codedark')
+vim.cmd.colorscheme('codedark_yellow')
 vim.api.nvim_create_autocmd('BufWinEnter', {
   pattern = '*',
   callback = function(args)

@@ -231,10 +231,25 @@ vim.keymap.set('n', '<leader>c', function()
     if c and c ~= "" then
       c = 'bash -i -c "source ~/.bashrc && ' .. c .. '"'
       vim.cmd('nos ene | setl bt=nofile bh=wipe')
-      vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.fn.systemlist(c))
+      local output = vim.fn.systemlist(c)
+      -- Filter out the bash warning lines
+      local filtered_output = {}
+      local skip_lines = 0
+      -- Check if first two lines are the bash warnings
+      if #output >= 2 and
+         output[1]:match("bash: cannot set terminal process group") and
+         output[2]:match("bash: no job control in this shell") then
+        skip_lines = 2
+      end
+      -- Copy the remaining lines
+      for i = skip_lines + 1, #output do
+        table.insert(filtered_output, output[i])
+      end
+      vim.api.nvim_buf_set_lines(0, 0, -1, false, filtered_output)
     end
   end)
 end, { desc = 'Execute terminal [c]ommand and drop result to scratch buffer' })
+
 vim.keymap.set('n', 'gd', function()
   local symbol = vim.fn.expand('<cword>')
   if symbol == '' then return end
