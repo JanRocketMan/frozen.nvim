@@ -226,6 +226,7 @@ end, { desc = 'Show buffers excluding hidden' })
 
 -- Load current file path to clipboard, execute terminal command with scratch buffer
 vim.keymap.set('n', '<leader>y', function() vim.fn.setreg('+', vim.fn.expand('%:p')) vim.fn.setreg('"', vim.fn.expand('%:p')) end, { desc = 'Cop[y] to clipboard current path' })
+vim.keymap.set('n', '<leader>ty', function() vim.fn.setreg('+', vim.fn.expand('%:.')) vim.fn.setreg('"', vim.fn.expand('%:p')) end, { desc = 'Cop[y] to clipboard current path' })
 vim.keymap.set('n', '<leader>c', function()
   vim.ui.input({}, function(c)
     if c and c ~= "" then
