@@ -87,14 +87,8 @@ vim.keymap.set('n', '<F5>', function() require('dap').continue() end, { desc = '
 
 -- Fix __repr__ attributes for pytorch Tensors to improve stack readability during debugging
 vim.keymap.set('n', '<leader>td', function()
-  require('dap.repl').execute('import torch; torch.Tensor.__repr__ = lambda self: f"[{self.min().float():.1f}, {self.max().float():.1f}], {self.shape}, {self.dtype}, {self.device}"')
+  require('dap.repl').execute('import torch; torch.Tensor.__repr__ = lambda self: f"{str(self.dtype).replace(\'torch.\', \'\')}{list(self.shape)}, [{self.min().float():.1f}, {self.max().float():.1f}], {str(self.device)}"')
 end, { desc = 'Toggle Py[t]orch [d]ebug __repr__'})
 vim.keymap.set('n', '<leader>tp', function()
   require('dap.repl').execute('from torchvision.utils import save_image as si')
 end, { desc = '[T]oggle [P]ytorch visualization utils'})
-
--- Keymaps for CodeCompanion
-vim.keymap.set({'n', 'v'}, '<C-a>', '<cmd>CodeCompanionActions<cr>', { noremap = true, silent = true })
-vim.keymap.set({'n', 'v'}, '<leader>a', '<cmd>CodeCompanionChat Toggle<cr>', { noremap = true, silent = true })
-vim.keymap.set('v', 'ga', '<cmd>CodeCompanionChat Add<cr>', { noremap = true, silent = true })
-vim.cmd([[cab cc CodeCompanion]])

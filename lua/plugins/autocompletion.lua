@@ -35,32 +35,5 @@ return {
     },
     opts_extend = { "sources.default" }
   },
-  {
-    "olimorris/codecompanion.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
-    },
-    config = function()
-      require("codecompanion").setup({
-        strategies = {
-          chat = { adapter = "ollama" },
-          inline = { adapter = "ollama" },
-          agent = { adapter = "ollama" },
-        },
-        adapters = {
-          ollama = function()
-            return require("codecompanion.adapters").extend("ollama", {
-              schema = {
-                model = {
-                  default = "qwen3:30b-a3b",
-                },
-              },
-            })
-          end,
-        },
-      })
-    end,
-  }
 }
 -- vim: ts=2 sts=2 sw=2 et
