@@ -85,6 +85,9 @@ vim.keymap.set('n', '<F4>', function()
 end, { desc = 'Start debugging' })
 vim.keymap.set('n', '<F5>', function() require('dap').continue() end, { desc = 'Debug: Continue' })
 
+-- Context navigation keymap
+vim.keymap.set("n", "<leader>ts", ":Namu symbols<cr>:echo ''<cr>")
+
 -- Function to configure PyTorch tensor repr utils in DAP
 local function configure_pytorch_debug_repr()
   require('dap.repl').execute('import sys; "torch" in sys.modules and setattr(sys.modules["torch"].Tensor, "__repr__", lambda self: f"{str(self.dtype).replace(\'torch.\', \'\')}{tuple(self.shape)}∈[{self.min().float():.2f}, {self.max().float():.2f}]@{str(self.device)}")')
