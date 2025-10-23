@@ -3,7 +3,6 @@ require('lazy').setup({
   -- set default colorscheme
   require 'plugins/utils',
   require 'plugins/treesitter',
-  require 'plugins/telescope',
   require 'plugins/autocompletion',
   require 'plugins/lsp',
   require 'plugins/linting_formatting',

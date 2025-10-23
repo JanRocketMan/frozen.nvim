@@ -26,6 +26,12 @@ vim.g.disable_autoformat = true
 
 -- 4. [[Add plugin keymaps]]
 
+-- Manipulate files with mini.files
+vim.keymap.set('n', '<leader>o', function()
+  require('mini.files').open(vim.api.nvim_buf_get_name(0), true)
+  require('mini.files').reveal_cwd()
+end, { desc = '[O]pen file tree for current buffer' })
+
 -- Use fast navigation w flash
 -- We enable `s` keymap both in files and in netrw
 vim.keymap.set({'n', 'x', 'o'}, 's', function() require('flash').jump() end, {desc = "Flash jump"})
@@ -67,10 +73,6 @@ end, { desc = 'Toggle diagnostic [e]rror list' })
 -- Jump between error messages if opened in quickfix list
 vim.keymap.set('n', '[e', vim.diagnostic.goto_prev, { desc = 'Go to previous [e]rror message' })
 vim.keymap.set('n', ']e', vim.diagnostic.goto_next, { desc = 'Go to next [e]rror message' })
-
--- Use telescope to search for files, words and jump between recent files
-vim.keymap.set('n', '<leader>f', function() require('telescope.builtin').find_files() end, { desc = 'Search [F]iles' })
-vim.keymap.set('n', '<leader>s', function() require('telescope.builtin').live_grep() end, { desc = '[S]earch by grep' })
 
 -- Keymaps for git plugins
 vim.keymap.set('n', '<leader>g', function() require('neogit'):open() end, { desc = 'Open neo[g]it window'})

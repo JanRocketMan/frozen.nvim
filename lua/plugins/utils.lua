@@ -18,8 +18,6 @@ return {
     },
     -- stylua: ignore
   },
-  -- Show pending keybinds.
-  {'folke/which-key.nvim', config = function() require('which-key').setup() end},
   -- Revert changes even without git
   {
     "jiaoshijie/undotree",
@@ -34,16 +32,19 @@ return {
   "bassamsdata/namu.nvim",
     config = function()
       require("namu").setup({
-        -- Enable the modules you want
         namu_symbols = {enable = true },
         ui_select = { enable = false },
         colorscheme = { enable = false },
       })
-      -- === Suggested Keymaps: ===
-      vim.keymap.set("n", "<leader>th", ":Namu colorscheme<cr>", {
-        desc = "Colorscheme Picker",
-        silent = true,
-      })
     end,
+  },
+  -- File explorer
+  { 'echasnovski/mini.files', opts = {
+    mappings = {
+      close = '<ESC>',
+      go_in_plus = '<Enter>',
+      go_out_plus = '<BS>',
+      reset = 'rs',
+    },}
   },
 }

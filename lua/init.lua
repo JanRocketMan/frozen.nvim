@@ -142,7 +142,6 @@ vim.keymap.set('n', '<leader>q', ':q!<CR>', { desc = '[Q]uit current window' })
 vim.keymap.set('n', '<leader>x', ':tabclose<CR>', { desc = 'E[x]it current tab' })
 
 -- Search files
-vim.keymap.set('n', '<leader>f', ':find ', { desc = 'Search [F]iles' })
 vim.keymap.set('n', '<leader>o', function()
   vim.cmd('Ex | sil! /' .. vim.fn.expand('%:t'))
   vim.cmd('nohlsearch')
