@@ -4,6 +4,8 @@
 
 scriptencoding utf-8
 
+let g:colors_name = 'codeyellow'
+
 set background=dark
 hi clear
 if exists("syntax_on")
@@ -73,14 +75,8 @@ endif
 " General appearance colors:
 " (some of them may be unused)
 
-" Set custom yellowish colorscheme
-if !exists("g:codedark_yellow")
-    let g:codedark_yellow=0
-endif
-
 let s:cdNone = {'gui': 'NONE', 'cterm': 'NONE', 'cterm256': 'NONE'}
-let s:cdFront = {'gui': '#D4D4D4', 'cterm': s:cterm05, 'cterm256': '188'}
-if g:codedark_yellow | let s:cdFront = {'gui': '#b8a583', 'cterm': 'NONE', 'cterm256': '234'} | endif
+let s:cdFront = {'gui': '#b8a583', 'cterm': 'NONE', 'cterm256': '234'}
 let s:cdBack = {'gui': '#1E1E1E', 'cterm': s:cterm00, 'cterm256': '234'}
 
 let s:cdTabCurrent = {'gui': '#1E1E1E', 'cterm': s:cterm00, 'cterm256': '234'}
@@ -121,39 +117,25 @@ let s:cdSearch = {'gui': '#773800', 'cterm': s:cterm03, 'cterm256': '94'}
 
 let s:cdGray = {'gui': '#808080', 'cterm': s:cterm04, 'cterm256': '08'}
 let s:cdViolet = {'gui': '#646695', 'cterm': s:cterm04, 'cterm256': '60'}
-let s:cdBlue = {'gui': '#569CD6', 'cterm': s:cterm0D, 'cterm256': '75'}
-let s:cdDarkBlue = {'gui': '#223E55', 'cterm': s:cterm0D, 'cterm256': '73'}
-let s:cdLightBlue = {'gui': '#9CDCFE', 'cterm': s:cterm0C, 'cterm256': '117'}
-let s:cdGreen = {'gui': '#6A9955', 'cterm': s:cterm0B, 'cterm256': '65'}
-let s:cdBlueGreen = {'gui': '#4EC9B0', 'cterm': s:cterm0F, 'cterm256': '43'}
-let s:cdLightGreen = {'gui': '#B5CEA8', 'cterm': s:cterm09, 'cterm256': '151'}
-let s:cdRed = {'gui': '#F44747', 'cterm': s:cterm08, 'cterm256': '203'}
-let s:cdOrange = {'gui': '#CE9178', 'cterm': s:cterm0F, 'cterm256': '173'}
-let s:cdLightRed = {'gui': '#D16969', 'cterm': s:cterm08, 'cterm256': '167'}
-let s:cdYellowOrange = {'gui': '#D7BA7D', 'cterm': s:cterm0A, 'cterm256': '179'}
-let s:cdYellow = {'gui': '#DCDCAA', 'cterm': s:cterm0A, 'cterm256': '187'}
-let s:cdPink = {'gui': '#C586C0', 'cterm': s:cterm0E, 'cterm256': '176'}
 let s:cdSilver = {'gui': '#C0C0C0', 'cterm': s:cterm05, 'cterm256': '7'}
 
-if g:codedark_yellow
-  let s:cdLightBlue   = {'gui': '#b8a583', 'cterm': s:cterm0C, 'cterm256': '117'}
+let s:cdLightBlue   = {'gui': '#b8a583', 'cterm': s:cterm0C, 'cterm256': '117'}
 
-  let s:cdBlue     = {'gui': '#96724e', 'cterm': s:cterm0D, 'cterm256': '75'}
-  let s:cdDarkBlue = {'gui': '#96724e', 'cterm': s:cterm0D, 'cterm256': '73'}
+let s:cdBlue     = {'gui': '#96724e', 'cterm': s:cterm0D, 'cterm256': '75'}
+let s:cdDarkBlue = {'gui': '#96724e', 'cterm': s:cterm0D, 'cterm256': '73'}
 
-  let s:cdRed         = {'gui': '#96724e', 'cterm': s:cterm08, 'cterm256': '179'}
-  let s:cdLightRed    = {'gui': '#ddd2b8', 'cterm': s:cterm08, 'cterm256': '179'}
-  let s:cdOrange      = {'gui': '#ddd2b8', 'cterm': s:cterm0F, 'cterm256': '179'}
+let s:cdRed         = {'gui': '#96724e', 'cterm': s:cterm08, 'cterm256': '179'}
+let s:cdLightRed    = {'gui': '#ddd2b8', 'cterm': s:cterm08, 'cterm256': '179'}
+let s:cdOrange      = {'gui': '#ddd2b8', 'cterm': s:cterm0F, 'cterm256': '179'}
 
-  let s:cdYellowOrange= {'gui': '#b8a583', 'cterm': s:cterm0A, 'cterm256': '179'}
-  let s:cdYellow      = {'gui': '#b8a583', 'cterm': s:cterm0A, 'cterm256': '179'}
+let s:cdYellowOrange= {'gui': '#b8a583', 'cterm': s:cterm0A, 'cterm256': '179'}
+let s:cdYellow      = {'gui': '#b8a583', 'cterm': s:cterm0A, 'cterm256': '179'}
 
-  let s:cdGreen       = {'gui': '#ddd2b8', 'cterm': s:cterm0B, 'cterm256': '187'}
-  let s:cdLightGreen  = {'gui': '#b8a583', 'cterm': s:cterm09, 'cterm256': '187'}
-  let s:cdBlueGreen   = {'gui': '#96724e', 'cterm': s:cterm0F, 'cterm256': '187'}
+let s:cdGreen       = {'gui': '#ddd2b8', 'cterm': s:cterm0B, 'cterm256': '187'}
+let s:cdLightGreen  = {'gui': '#b8a583', 'cterm': s:cterm09, 'cterm256': '187'}
+let s:cdBlueGreen   = {'gui': '#96724e', 'cterm': s:cterm0F, 'cterm256': '187'}
 
-  let s:cdPink = {'gui': '#96724e', 'cterm': s:cterm0E, 'cterm256': '176'}
-endif
+let s:cdPink = {'gui': '#96724e', 'cterm': s:cterm0E, 'cterm256': '176'}
 
 " UI (built-in)
 "    <sid>hi(GROUP, FOREGROUND, BACKGROUND, ATTRIBUTE, SPECIAL)
