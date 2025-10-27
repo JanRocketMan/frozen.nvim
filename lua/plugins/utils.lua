@@ -39,12 +39,5 @@ return {
     end,
   },
   -- File explorer
-  { 'echasnovski/mini.files', opts = {
-    mappings = {
-      close = '<ESC>',
-      go_in_plus = '<Enter>',
-      go_out_plus = '<BS>',
-      reset = 'rs',
-    },}
-  },
+  {"vifm/vifm.vim"},
 }

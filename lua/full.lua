@@ -28,9 +28,11 @@ vim.g.disable_autoformat = true
 
 -- Manipulate files with mini.files
 vim.keymap.set('n', '<leader>o', function()
-  require('mini.files').open(vim.api.nvim_buf_get_name(0), true)
-  require('mini.files').reveal_cwd()
-end, { desc = '[O]pen file tree for current buffer' })
+  local file = vim.fn.expand('%:p')
+  local dir  = vim.fn.fnamemodify(file, ':h')
+  vim.defer_fn(function() vim.cmd('echo ""') end, 100)
+  vim.cmd('Vifm ' .. vim.fn.fnameescape(dir) .. ' /' .. file)
+end, { desc = 'Open Vifm at current file (selected)' })
 
 -- Use fast navigation w flash
 -- We enable `s` keymap both in files and in netrw
