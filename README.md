@@ -16,7 +16,7 @@ Probably shouldn't be used by anyone.
 We provide a single installation script that installs both neovim, fd and ripgrep and configures neovim:
 
 ```bash
-curl -LsSf https://raw.githubusercontent.com/JanRocketMan/frozen.nvim/refs/heads/main/autoinstall.sh | sh
+curl -LsSf https://raw.githubusercontent.com/JanRocketMan/frozen.nvim/refs/heads/main/autoinstall.sh | bash
 ```
 
 Additionally there is a minimal version that doesn't install Lazy plugin manager or plugins (using core neovim only):
