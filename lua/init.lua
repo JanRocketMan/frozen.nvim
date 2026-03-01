@@ -146,6 +146,7 @@ vim.keymap.set('n', '<leader>o', function()
   vim.cmd('Ex | sil! /' .. vim.fn.expand('%:t'))
   vim.cmd('nohlsearch')
 end, { desc = '[O]pen file tree for current buffer' })
+vim.keymap.set('n', '<leader>f', ':e **/*')
 
 -- Replace in current buffer
 vim.keymap.set({'n', 'x', 'o'}, '<leader>r', '"hy:%s/<C-r>h//g<left><left>', { desc = '[R]eplace all occurences of current selection in current buffer' })
