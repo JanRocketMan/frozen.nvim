@@ -26,30 +26,13 @@ vim.g.disable_autoformat = true
 
 -- 4. [[Add plugin keymaps]]
 
--- Manipulate files with mini.files
+-- Manipulate files with Vifm
 vim.keymap.set('n', '<leader>o', function()
   local file = vim.fn.expand('%:p')
   local dir  = vim.fn.fnamemodify(file, ':h')
   vim.defer_fn(function() vim.cmd('echo ""') end, 100)
   vim.cmd('Vifm ' .. vim.fn.fnameescape(dir) .. ' /' .. file)
 end, { desc = 'Open Vifm at current file (selected)' })
-
--- Use fast navigation w flash
--- We enable `s` keymap both in files and in netrw
-vim.keymap.set({'n', 'x', 'o'}, 's', function() require('flash').jump() end, {desc = "Flash jump"})
-local function set_flash_keymap()
-  if vim.bo.filetype == 'netrw' then
-    vim.keymap.set('n', 's', function() require('flash').jump() end, {buffer = true})
-  end
-end
-vim.api.nvim_create_autocmd({"FileType", "BufEnter", "BufWinEnter"},
-{
-    pattern = '*',
-    callback = function()
-      vim.schedule(set_flash_keymap)
-    end
-})
-vim.keymap.set({'n', 'x', 'o'}, 'R', function() require('flash').treesitter() end, {desc = "Flash jump treesitter"})
 
 -- Save with autoformatting
 vim.keymap.set('n', '<leader>ti', function()
