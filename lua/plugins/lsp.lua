@@ -4,6 +4,7 @@ return {
     dependencies = {
       -- Useful status updates for LSP.
       { 'j-hui/fidget.nvim', opts = {} },
+      { 'nvim-telescope/telescope.nvim' },
     },
     config = function()
       vim.api.nvim_create_autocmd('LspAttach', {
