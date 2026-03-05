@@ -76,9 +76,6 @@ end, { desc = 'Toggle diagnostic [e]rror list' })
 vim.keymap.set('n', '[e', vim.diagnostic.goto_prev, { desc = 'Go to previous [e]rror message' })
 vim.keymap.set('n', ']e', vim.diagnostic.goto_next, { desc = 'Go to next [e]rror message' })
 
--- Keymaps for git plugins
-vim.keymap.set('n', '<leader>g', function() require('neogit'):open() end, { desc = 'Open neo[g]it window'})
-
 -- Basic debugging keymaps
 vim.keymap.set('n', '<leader>b', function() require('dap').toggle_breakpoint() end, { desc = 'Debug: Toggle [B]reakpoint' })
 vim.keymap.set('n', '<F4>', function()
