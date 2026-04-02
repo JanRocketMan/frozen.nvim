@@ -135,6 +135,12 @@ vim.keymap.set('n', '<PageUp>', '<C-u>zz', { desc = 'Move [U]p with centering' }
 vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Move [D]own with centering' })
 vim.keymap.set('n', '<PageDown>', '<C-d>zz', { desc = 'Move [D]own with centering' })
 
+-- Improve window navigation
+vim.keymap.set('n', '<C-Left>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+vim.keymap.set('n', '<C-Right>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+vim.keymap.set('n', '<C-Down>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+vim.keymap.set('n', '<C-Up>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+
 -- Save file wo messages, close buffer/window/tab
 vim.keymap.set('n', '<leader>i', ':w<CR>:echo ""<CR>', { desc = 'Wr[i]te current file' })
 vim.keymap.set('n', '<leader>d', ':bd<CR>:echo ""<CR>', { desc = '[D]elete current buffer' })

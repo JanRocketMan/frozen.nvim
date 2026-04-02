@@ -71,8 +71,8 @@ highlight Border cterm=none ctermfg=238 ctermbg=234
 highlight OtherLine ctermfg=144 ctermbg=234
 highlight JobLine cterm=reverse ctermfg=144 ctermbg=234
 highlight SuggestBox cterm=bold ctermfg=250 ctermbg=234
-highlight CmpMismatch cterm=bold ctermfg=250 ctermbg=52
-highlight CmpUnmatched cterm=bold ctermfg=144 ctermbg=58
+highlight CmpMismatch cterm=bold ctermfg=250 ctermbg=235
+highlight CmpUnmatched cterm=bold ctermfg=144 ctermbg=235
 highlight CmpBlank ctermfg=144 ctermbg=234
 highlight AuxWin ctermfg=144 ctermbg=234
 highlight TabLine cterm=none ctermfg=144 ctermbg=234
