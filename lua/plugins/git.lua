@@ -41,6 +41,18 @@ return {
         keymaps = {
           view = {
             ["q"] = close_diffview,
+            {
+              "n",
+              "<C-Down>",
+              actions.select_next_entry,
+              { desc = "Open the diff for the next file" },
+            },
+            {
+              "n",
+              "<C-Up>",
+              actions.select_prev_entry,
+              { desc = "Open the diff for the previous file" },
+            },
           },
           file_panel = {
             ["q"] = close_diffview,
