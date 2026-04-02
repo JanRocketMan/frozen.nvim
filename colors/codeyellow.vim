@@ -142,7 +142,7 @@ let s:cdPink = {'gui': '#96724e', 'cterm': s:cterm0E, 'cterm256': '176'}
 call <sid>hi('Normal', s:cdFront, s:cdBack, 'none', {})
 call <sid>hi('ColorColumn', {}, s:cdCursorDarkDark, 'none', {})
 call <sid>hi('Cursor', s:cdCursorDark, s:cdCursorLight, 'none', {})
-call <sid>hi('CursorLine', {}, s:cdCursorDarkDark, 'none', {})
+call <sid>hi('CursorLine', {}, s:cdLeftDark, 'none', {})
 hi! link CursorColumn CursorLine
 call <sid>hi('Directory', s:cdBlue, s:cdNone, 'none', {})
 call <sid>hi('DiffAdd', s:cdFront, s:cdDiffGreenLight, 'none', {})
@@ -152,6 +152,7 @@ call <sid>hi('DiffText', s:cdBack, s:cdDiffBlueLight, 'none', {})
 call <sid>hi('EndOfBuffer', s:cdLineNumber, s:cdBack, 'none', {})
 call <sid>hi('ErrorMsg', s:cdRed, s:cdBack, 'none', {})
 call <sid>hi('VertSplit', s:cdSplitDark, s:cdBack, 'none', {})
+call <sid>hi('WinSeparator', s:cdSplitDark, s:cdBack, 'none', {})
 call <sid>hi('Folded', s:cdLeftLight, s:cdLeftDark, 'underline', {})
 call <sid>hi('FoldColumn', s:cdLineNumber, s:cdBack, 'none', {})
 call <sid>hi('SignColumn', {}, s:cdBack, 'none', {})
@@ -651,3 +652,17 @@ function! s:RainbowFix() abort
   exec 'hi RainbowDelimiterViolet guifg=' . l:color2
   exec 'hi RainbowDelimiterCyan   guifg=' . l:color1
 endfunction
+
+" Diffview:
+call <sid>hi('DiffviewFilePanelTitle', s:cdPopupFront, {}, 'bold', {})
+call <sid>hi('DiffviewFilePanelCounter', s:cdPopupFront, {}, 'bold', {})
+call <sid>hi('DiffviewFilePanelFileName', s:cdOrange, {}, 'none', {})
+call <sid>hi('DiffviewFilePanelPath', s:cdFront, {}, 'none', {})
+call <sid>hi('DiffviewStatusAdded', s:cdGreen, {}, 'none', {})
+call <sid>hi('DiffviewStatusModified', s:cdBlue, {}, 'none', {})
+call <sid>hi('DiffviewStatusDeleted', s:cdRed, {}, 'none', {})
+call <sid>hi('DiffviewDim1', s:cdLeftDark, {}, 'none', {})
+call <sid>hi('DiffviewNonText', s:cdLeftDark, {}, 'none', {})
+call <sid>hi('DiffviewFilePanelInsertions', s:cdGreen, {}, 'none', {})
+call <sid>hi('DiffviewFilePanelDeletions', s:cdRed, {}, 'none', {})
+call <sid>hi('DiffviewCursorLine', {}, s:cdLeftMid, 'none', {})
