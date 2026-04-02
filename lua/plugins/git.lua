@@ -53,6 +53,17 @@ return {
               actions.select_prev_entry,
               { desc = "Open the diff for the previous file" },
             },
+            {
+              "n",
+              "<leader>o",
+              function()
+                local pos = vim.api.nvim_win_get_cursor(0)
+                vim.cmd.tabedit(vim.api.nvim_buf_get_name(0))
+                vim.api.nvim_win_set_cursor(0, pos)
+                vim.keymap.set("n", "q", "<cmd>tabclose<cr>", { buffer = 0, desc = "Close preview tab" })
+              end,
+              { desc = "Open current file in a new tab" },
+            },
           },
           file_panel = {
             ["q"] = close_diffview,
