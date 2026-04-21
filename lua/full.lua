@@ -62,35 +62,13 @@ vim.keymap.set('n', ']e', vim.diagnostic.goto_next, { desc = 'Go to next [e]rror
 -- Basic debugging keymaps
 vim.keymap.set('n', '<leader>b', function() require('dap').toggle_breakpoint() end, { desc = 'Debug: Toggle [B]reakpoint' })
 vim.keymap.set('n', '<F4>', function()
-  require('dap').toggle_breakpoint()
+  local dap = require('dap')
+  dap.toggle_breakpoint()
   require("debugmaster").mode.toggle({nowait=true})
   vim.cmd('lua vim.opt.signcolumn="yes"')
-  require('dap').continue()
+  dap.run(dap.configurations.python[1])
 end, { desc = 'Start debugging' })
 vim.keymap.set('n', '<F5>', function() require('dap').continue() end, { desc = 'Debug: Continue' })
 
 -- Context navigation keymap
 vim.keymap.set("n", "<leader>ts", ":Namu symbols<cr>:echo ''<cr>")
-
--- Function to configure PyTorch tensor repr utils in DAP
-local function configure_pytorch_debug_repr()
-  require('dap.repl').execute('import sys; "torch" in sys.modules and setattr(sys.modules["torch"].Tensor, "__repr__", lambda self: f"{str(self.dtype).replace(\'torch.\', \'\')}{tuple(self.shape)}∈[{self.min().float():.2f}, {self.max().float():.2f}]@{str(self.device)}")')
-  require('dap.repl').execute('import sys; si = sys.modules["torchvision.utils"].save_image if "torchvision.utils" in sys.modules else (lambda *a, **k: print("torchvision not available"))')
-end
-
--- Auto-configure PyTorch repr when debugging starts
-vim.api.nvim_create_autocmd("User", {
-  pattern = {"LazyLoad", "VeryLazy"},
-  callback = function()
-    vim.defer_fn(function()
-      -- Create autocmd for when REPL opens
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = "dap-repl",
-        callback = function()
-          -- Wait for REPL to be ready then configure
-          vim.defer_fn(configure_pytorch_debug_repr, 1000)
-        end,
-      })
-    end, 100)
-  end,
-})
